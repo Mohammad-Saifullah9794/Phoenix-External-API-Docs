@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "d41ca6ce-2710-4610-b37e-484d488007bd",
+		"name": "Phoenix Admin API",
+		"description": "Reference collection for the Phoenix Admin API. Currently in early-stage development — endpoints will grow over time.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": ""
+		},
+		{
+			"key": "API_KEY",
+			"value": ""
+		}
+	],
+	"item": [
+		{
+			"name": "API Health",
+			"item": [
+				{
+					"name": "API Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/health/api",
+							"host": ["{{BASE_URL}}"],
+							"path": ["health", "api"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Self",
+			"item": [
+				{
+					"name": "Who Am I",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/self/who-am-i",
+							"host": ["{{BASE_URL}}"],
+							"path": ["self", "who-am-i"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Session",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/self/refresh",
+							"host": ["{{BASE_URL}}"],
+							"path": ["self", "refresh"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organization",
+			"item": [
+				{
+					"name": "Get Organization",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/organization/info",
+							"host": ["{{BASE_URL}}"],
+							"path": ["organization", "info"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Domains",
+			"item": [
+				{
+					"name": "List Domains",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/domain/list?limit=10&offset=0",
+							"host": ["{{BASE_URL}}"],
+							"path": ["domain", "list"],
+							"query": [
+								{ "key": "limit", "value": "10" },
+								{ "key": "offset", "value": "0" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Domain",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/domain/info/example.com",
+							"host": ["{{BASE_URL}}"],
+							"path": ["domain", "info", "example.com"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Domain",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"details\": {},\n  \"is_active\": true,\n  \"filter_policy_id\": null,\n  \"attachment_policy_id\": null,\n  \"disclaimer_id\": null,\n  \"caution_id\": null\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/domain/update/example.com",
+							"host": ["{{BASE_URL}}"],
+							"path": ["domain", "update", "example.com"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Identities",
+			"item": [
+				{
+					"name": "List Identities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/identity/list/example.com?limit=10&offset=0",
+							"host": ["{{BASE_URL}}"],
+							"path": ["identity", "list", "example.com"],
+							"query": [
+								{ "key": "limit", "value": "10" },
+								{ "key": "offset", "value": "0" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Identity",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/identity/info/jane.doe@example.com",
+							"host": ["{{BASE_URL}}"],
+							"path": ["identity", "info", "jane.doe@example.com"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Identity",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"jane.doe@example.com\",\n  \"domain_name\": \"example.com\",\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"primary_phone\": \"+15551234567\",\n  \"secondary_email\": null,\n  \"is_app_2fa_enabled\": false,\n  \"is_sms_2fa_enabled\": false,\n  \"is_email_2fa_enabled\": true,\n  \"restriction_policy_id\": null,\n  \"department_id\": null,\n  \"is_enabled\": true\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/identity/update",
+							"host": ["{{BASE_URL}}"],
+							"path": ["identity", "update"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Identity",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/identity/delete/jane.doe@example.com",
+							"host": ["{{BASE_URL}}"],
+							"path": ["identity", "delete", "jane.doe@example.com"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"encoded_password\": \"U2VjdXJlUGFzczEh\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/identity/update/password/jane.doe@example.com",
+							"host": ["{{BASE_URL}}"],
+							"path": ["identity", "update", "password", "jane.doe@example.com"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Departments",
+			"item": [
+				{
+					"name": "List Departments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/department/list?limit=10&offset=0",
+							"host": ["{{BASE_URL}}"],
+							"path": ["department", "list"],
+							"query": [
+								{ "key": "limit", "value": "10" },
+								{ "key": "offset", "value": "0" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Department",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/department/info/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e",
+							"host": ["{{BASE_URL}}"],
+							"path": ["department", "info", "7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Department",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"department_name\": \"Engineering\",\n  \"details\": {}\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/department/create",
+							"host": ["{{BASE_URL}}"],
+							"path": ["department", "create"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Department",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"department_name\": \"Platform Engineering\",\n  \"details\": {}\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/department/update/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e",
+							"host": ["{{BASE_URL}}"],
+							"path": ["department", "update", "7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Department",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/department/delete/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e",
+							"host": ["{{BASE_URL}}"],
+							"path": ["department", "delete", "7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

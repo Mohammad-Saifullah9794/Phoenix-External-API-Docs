@@ -1,0 +1,111 @@
+---
+title: Get Department
+---
+
+# Get Department
+
+Returns details for a single department.
+
+<ApiEndpoint method="GET" path="/department/info/{department_id}" auth={true} />
+
+## Permissions
+
+Requires the `department:view` permission. See [Permissions](../../permissions).
+
+## Headers
+
+| Header | Required | Description |
+|--------|----------|--------------|
+| `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
+
+## Path Parameters
+
+| Parameter | Type | Description |
+|-----------|------|--------------|
+| `department_id` | `string` (UUID) | The department to look up |
+
+## Request
+
+<Tabs groupId="code-samples">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location '<BASE_URL>/department/info/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e' \
+--header 'x-api-key: <API_KEY>'
+```
+
+</TabItem>
+<TabItem value="node" label="Node.js">
+
+```js
+const response = await fetch(
+  '<BASE_URL>/department/info/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e',
+  { headers: { 'x-api-key': '<API_KEY>' } },
+);
+
+const department = await response.json();
+console.log(department);
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+response = requests.get(
+    '<BASE_URL>/department/info/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e',
+    headers={'x-api-key': '<API_KEY>'},
+)
+print(response.json())
+```
+
+</TabItem>
+</Tabs>
+
+## Response
+
+<Tabs groupId="response-status">
+<TabItem value="200" label="200 OK">
+
+```json
+{
+  "department_id": "7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e",
+  "department_name": "Engineering",
+  "details": {},
+  "created_at": "2025-06-01T10:00:00Z",
+  "updated_at": "2025-06-01T10:00:00Z"
+}
+```
+
+#### Response Fields
+
+| Field | Type | Description |
+|-------|------|--------------|
+| `department_id` | `string` (UUID) | The department's ID |
+| `department_name` | `string` | Department name |
+| `details` | `object` | Free-form department metadata |
+| `created_at` | `string` (ISO 8601) | When the department was created |
+| `updated_at` | `string` (ISO 8601) | When the department was last updated |
+
+</TabItem>
+<TabItem value="401" label="401 Unauthorized">
+
+```json
+{
+  "error": "Unauthorized: Missing required permission: department:view"
+}
+```
+
+</TabItem>
+</Tabs>
+
+:::note Department not found
+If `department_id` doesn't exist, the API currently returns `200 OK` with a JSON `null` body rather than a `404`.
+:::
+
+## Errors
+
+| Status | Meaning |
+|--------|---------|
+| `401` | Missing/invalid `x-api-key`, or missing `department:view` permission |

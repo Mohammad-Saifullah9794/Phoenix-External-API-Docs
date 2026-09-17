@@ -1,0 +1,91 @@
+.endpointBar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.625rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.methodBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ifm-font-family-monospace);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  padding: 0.28rem 0.55rem;
+  border-radius: 0.4rem;
+  color: #fff;
+  line-height: 1;
+}
+
+.get {
+  background: #2563eb;
+}
+.post {
+  background: #16a34a;
+}
+.put {
+  background: #d97706;
+}
+.patch {
+  background: #7c3aed;
+}
+.delete {
+  background: #dc2626;
+}
+
+.path {
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.authTag {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.authRequired {
+  color: #b45309;
+  background: rgba(217, 119, 6, 0.14);
+}
+
+.authNone {
+  color: #15803d;
+  background: rgba(22, 163, 74, 0.14);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--ifm-font-family-monospace);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.35rem;
+}
+
+.status2xx {
+  color: #15803d;
+  background: rgba(22, 163, 74, 0.14);
+}
+.status4xx {
+  color: #b45309;
+  background: rgba(217, 119, 6, 0.14);
+}
+.status5xx {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.14);
+}

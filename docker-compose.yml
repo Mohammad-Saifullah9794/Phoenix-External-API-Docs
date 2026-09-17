@@ -1,0 +1,10 @@
+services:
+  phoenix-external-api-docs:
+    image: rjyspl/phoenix-external-api-docs:latest
+
+    container_name: phoenix-external-api-docs
+
+    ports:
+      - '127.0.0.1:8682:3000'
+
+    restart: always

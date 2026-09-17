@@ -1,0 +1,59 @@
+:root {
+  /* Primary colors - works for both themes */
+  --ifm-color-primary: #8b5cf6;
+  --ifm-color-primary-dark: #7c3aed;
+  --ifm-color-primary-darker: #6d28d9;
+  --ifm-color-primary-darkest: #5b21b6;
+  --ifm-color-primary-light: #a78bfa;
+  --ifm-color-primary-lighter: #c4b5fd;
+  --ifm-color-primary-lightest: #ddd6fe;
+}
+
+/* Dark mode only */
+[data-theme='dark'] {
+  --ifm-background-color: #0a0a0a;
+  --ifm-background-surface-color: #111827;
+  --ifm-navbar-background-color: #050505;
+}
+
+/* Light mode (optional overrides) */
+[data-theme='light'] {
+  --ifm-navbar-background-color: #ffffff;
+}
+
+/* Transparent Navbar */
+
+/* Search Modal - Transparent Minimal Design */
+/* Search Button on Navbar */
+.navbar__search {
+  background: rgba(39, 39, 42, 0.6) !important;
+  border: 1px solid rgba(63, 63, 70, 0.8) !important;
+  border-radius: 0.625rem !important;
+  transition: all 0.4s ease !important;
+}
+
+.navbar__search:hover {
+  background: rgba(139, 92, 246, 0.15) !important;
+  border-color: rgba(139, 92, 246, 0.5) !important;
+  transform: translateY(-2px) !important;
+}
+
+.navbar__search-input {
+  background: transparent !important;
+  color: #a1a1aa !important;
+  padding: 0 0.5rem 0 0.5rem !important;
+}
+
+[data-theme='light'] .navbar__search {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: #e4e4e7 !important;
+}
+
+[data-theme='light'] .navbar__search:hover {
+  background: rgba(139, 92, 246, 0.08) !important;
+  border-color: rgba(139, 92, 246, 0.3) !important;
+}
+
+[data-theme='light'] .navbar__search-input {
+  color: #71717a !important;
+}
