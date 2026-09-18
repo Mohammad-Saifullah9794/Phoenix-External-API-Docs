@@ -15,28 +15,34 @@ Requires the `domain:edit` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 | `Content-Type` | Yes | Must be `application/json`. |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
+|-----------|------|-------------|
 | `domain_name` | `string` | The domain to update, e.g. `example.com` |
 
 ## Request Body
 
-All fields are required and fully replace the current value — this is not a partial update.
+This is a **full replace**, not a partial update: every field below is written on each call. Send the current value of anything you don't want to change — get it first with [Get Domain](./get).
 
-| Field | Type | Description |
-|-------|------|--------------|
-| `details` | `object` | Free-form domain metadata |
-| `is_active` | `boolean` | Whether the domain is active |
-| `filter_policy_id` | `string` (UUID) or `null` | Filter policy to apply |
-| `attachment_policy_id` | `string` (UUID) or `null` | Attachment policy to apply |
-| `disclaimer_id` | `string` (UUID) or `null` | Disclaimer to apply |
-| `caution_id` | `string` (UUID) or `null` | Caution to apply |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `details` | `object` | Yes | Custom JSON you want stored with the domain. Replaces the existing value. Send `{}` if unused. |
+| `is_active` | `boolean` | Yes | `false` deactivates the domain (see warning below) |
+| `filter_policy_id` | `string` (UUID) or `null` | No | Filter policy to apply. **Leaving it out sets it to `null`.** |
+| `attachment_policy_id` | `string` (UUID) or `null` | No | Attachment policy to apply. **Leaving it out sets it to `null`.** |
+| `disclaimer_id` | `string` (UUID) or `null` | No | Disclaimer to apply. **Leaving it out sets it to `null`.** |
+| `caution_id` | `string` (UUID) or `null` | No | Caution to apply. **Leaving it out sets it to `null`.** |
+
+Policy, disclaimer and caution IDs are created in the admin panel (**Policies** menu). The API has no endpoint to list them yet.
+
+:::warning Setting `is_active` to `false`
+A deactivated domain is no longer accepted by the identity endpoints — [List](../identities/list), [Create](../identities/create) and [Update](../identities/update) Identity return `403 Forbidden` for it until you set `is_active` back to `true`.
+:::
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
@@ -141,5 +147,7 @@ The number of rows updated (always `1` on success).
 
 | Status | Meaning |
 |--------|---------|
+| `400` | Body is not valid JSON, or `details`/`is_active` is missing (plain text) |
 | `401` | Missing/invalid `x-api-key`, or missing `domain:edit` permission |
 | `404` | Domain not found for your organization |
+| `417` | A policy, disclaimer or caution ID doesn't exist |

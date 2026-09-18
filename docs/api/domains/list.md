@@ -15,13 +15,13 @@ Requires the `domain:view` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 
 ## Query Parameters
 
 | Parameter | Type | Required | Description |
-|-----------|------|----------|--------------|
+|-----------|------|----------|-------------|
 | `limit` | integer | Yes | Items per page. Must be between 1 and 100. |
 | `offset` | integer | Yes | Number of items to skip. Must be 0 or greater. |
 
@@ -104,7 +104,15 @@ print(response.json())
 }
 ```
 
-The `items` array holds [Domain objects](./get#response-fields); `total`, `current_count`, `current_page`, and `total_pages` describe the pagination state for the `limit`/`offset` you passed.
+| Field | Type | Description |
+|-------|------|-------------|
+| `items` | `Domain[]` | Domains on this page. Each has the fields listed under [Get Domain → Response Fields](./get#response-fields). |
+| `total` | `integer` | Total number of domains in your organization |
+| `current_count` | `integer` | Number of domains in `items` |
+| `current_page` | `integer` | Page number, starting at 1 |
+| `total_pages` | `integer` | Total pages for the `limit` you sent |
+
+See [Pagination](../../pagination) for how to page through results.
 
 </TabItem>
 <TabItem value="400" label="400 Bad Request">

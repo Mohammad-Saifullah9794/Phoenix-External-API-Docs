@@ -4,7 +4,7 @@ title: Delete Department
 
 # Delete Department
 
-Permanently deletes a department.
+Permanently deletes a department. Identities in the department are **not** deleted — their `department_id` is set to `null`.
 
 <ApiEndpoint method="DELETE" path="/department/delete/{department_id}" auth={true} />
 
@@ -15,14 +15,14 @@ Requires the `department:delete` permission. See [Permissions](../../permissions
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
-| `department_id` | `string` (UUID) | The department to delete |
+|-----------|------|-------------|
+| `department_id` | `string` (UUID) | The department's ID — the `department_id` returned by [Create Department](./create) or [List Departments](./list). Replace `<DEPARTMENT_ID>` in the examples with it. |
 
 ## Request
 
@@ -30,7 +30,7 @@ Requires the `department:delete` permission. See [Permissions](../../permissions
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl --location --request DELETE '<BASE_URL>/department/delete/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e' \
+curl --location --request DELETE '<BASE_URL>/department/delete/<DEPARTMENT_ID>' \
 --header 'x-api-key: <API_KEY>'
 ```
 
@@ -39,7 +39,7 @@ curl --location --request DELETE '<BASE_URL>/department/delete/7f9c2a10-4e3b-4c8
 
 ```js
 const response = await fetch(
-  '<BASE_URL>/department/delete/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e',
+  '<BASE_URL>/department/delete/<DEPARTMENT_ID>',
   {
     method: 'DELETE',
     headers: { 'x-api-key': '<API_KEY>' },
@@ -57,7 +57,7 @@ console.log(result);
 import requests
 
 response = requests.delete(
-    '<BASE_URL>/department/delete/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e',
+    '<BASE_URL>/department/delete/<DEPARTMENT_ID>',
     headers={'x-api-key': '<API_KEY>'},
 )
 print(response.json())
@@ -107,4 +107,4 @@ Deleting a department cannot be undone via the API.
 | Status | Meaning |
 |--------|---------|
 | `401` | Missing/invalid `x-api-key`, or missing `department:delete` permission |
-| `404` | Department not found for your organization |
+| `404` | Department not found for your organization, or `department_id` isn't a valid UUID |

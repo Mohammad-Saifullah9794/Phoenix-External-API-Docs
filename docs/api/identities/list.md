@@ -15,19 +15,19 @@ Requires the `identity:view` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
+|-----------|------|-------------|
 | `domain_name` | `string` | The domain to list identities for, e.g. `example.com`. Must be an active, DNS-verified domain owned by your organization. |
 
 ## Query Parameters
 
 | Parameter | Type | Required | Description |
-|-----------|------|----------|--------------|
+|-----------|------|----------|-------------|
 | `limit` | integer | Yes | Items per page. Must be between 1 and 100. |
 | `offset` | integer | Yes | Number of items to skip. Must be 0 or greater. |
 
@@ -106,7 +106,15 @@ print(response.json())
 }
 ```
 
-The `items` array holds [Identity objects](./get#response-fields); `total`, `current_count`, `current_page`, and `total_pages` describe the pagination state.
+| Field | Type | Description |
+|-------|------|-------------|
+| `items` | `Identity[]` | Identities on this page, sorted by email. Each has the fields listed under [Get Identity → Response Fields](./get#response-fields). |
+| `total` | `integer` | Total number of identities on the domain |
+| `current_count` | `integer` | Number of identities in `items` |
+| `current_page` | `integer` | Page number, starting at 1 |
+| `total_pages` | `integer` | Total pages for the `limit` you sent |
+
+See [Pagination](../../pagination) for how to page through results.
 
 </TabItem>
 <TabItem value="400" label="400 Bad Request">

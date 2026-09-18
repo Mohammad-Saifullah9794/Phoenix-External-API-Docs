@@ -4,10 +4,10 @@ title: Departments
 
 # Departments
 
-Full CRUD for organizing identities into departments.
+Departments group the identities in your organization — for example *Sales* or *Engineering*. Each identity can belong to one department through its `department_id`.
 
 | Method | Endpoint | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `GET` | [`/department/list`](./list) | List all departments |
 | `GET` | [`/department/info/{department_id}`](./get) | Get details for a single department |
 | `POST` | [`/department/create`](./create) | Create a department |

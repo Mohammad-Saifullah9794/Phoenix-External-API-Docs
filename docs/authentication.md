@@ -1,39 +1,49 @@
 ---
 sidebar_position: 2
+title: Authentication
 ---
 
 # Authentication
 
-All protected endpoints authenticate requests using an API key sent in the `X-API-Key` header. There is no separate login step — the key itself is the credential.
+Every endpoint except [API Health](./api/health) needs an API key. There is no login step and no token to refresh — you send the key itself with every request.
 
-## Authentication Header
+## Get a key
 
-**Header name**: `x-api-key` 
+API keys are created by an administrator in the Phoenix Admin Panel under **Settings → API Keys**. See [Create an API key](./api-keys) for a step-by-step guide. The key is a UUID such as `3f2b8c1e-7a4d-4e9b-8c2f-1d5e6a7b8c9d`.
 
+## Send the key in the `x-api-key` header
 
-**Header value**: your API key, a UUID (e.g. `<API_KEY>`)
+| Header name | Header value |
+|-------------|-------------|
+| `x-api-key` | Your API key (UUID) |
+
+Header names are not case-sensitive, so `X-API-Key` works too. Do not add a prefix such as `Bearer`.
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl --location '<BASE_URL>/self/who-am-i' \
---header 'x-api-key: <API_KEY>'
+curl '<BASE_URL>/self/who-am-i' \
+  --header 'x-api-key: <API_KEY>'
 ```
 
 </TabItem>
 <TabItem value="node" label="Node.js">
 
+Requires Node.js 18 or later (built-in `fetch`). Save as `who-am-i.mjs` and run `node who-am-i.mjs`.
+
 ```js
 const response = await fetch('<BASE_URL>/self/who-am-i', {
-  headers: {
-    'x-api-key': '<API_KEY>',
-  },
+  headers: { 'x-api-key': '<API_KEY>' },
 });
+
+console.log(response.status, await response.text());
 ```
 
 </TabItem>
 <TabItem value="python" label="Python">
+
+Requires the `requests` package: `pip install requests`.
 
 ```python
 import requests
@@ -42,29 +52,42 @@ response = requests.get(
     '<BASE_URL>/self/who-am-i',
     headers={'x-api-key': '<API_KEY>'},
 )
+print(response.status_code, response.text)
 ```
 
 </TabItem>
 </Tabs>
 
 :::danger Keep your API key secret
-Anyone with your API key can make requests as your organization, scoped to whatever permissions the key holds. Never log it, commit it to version control, or expose it to client-side code.
+Anyone who has the key can act as your organization, within the permissions the key holds. Keep it on your server, never in browser or mobile app code, and never commit it to a repository. If a key leaks, deactivate or delete it in the admin panel and create a new one.
 :::
 
-## How it's validated
+## When a key is rejected
 
-Each key is looked up against an `is_active` record tied to an organization and a set of permission strings. A valid, active key is cached (in Redis) after its first use, so subsequent requests resolve without a database round trip.
+If the header is missing, is not a valid UUID, or does not match an active key, the API responds with `401` and a **plain-text** body (not JSON):
 
 ```text title="401 Unauthorized"
 Unauthorized: Invalid API Key
 ```
 
-You'll get this if the header is missing, isn't a valid UUID, or doesn't match an active key.
+If the key is valid but lacks the permission an endpoint needs, the API also responds with `401`, this time with a JSON body:
 
-## Checking what a key can do
+```json title="401 Unauthorized"
+{
+  "error": "Unauthorized: Missing required permission: domain:view"
+}
+```
 
-Call [`GET /self/who-am-i`](./api/self/who-am-i) with your key to see the organization it belongs to and the permissions it holds. If you've just changed a key's permissions and need that change reflected immediately, call [`POST /self/refresh`](./api/self/refresh) to bust the cache.
+See [Errors](./errors) for every status code the API can return.
 
-## Which endpoints need this?
+## How key details are cached
 
-Every endpoint documents whether it requires authentication via an **Auth required** / **No auth** badge at the top of its page.
+The first time a key is used, the API loads its organization and permissions from the database and **caches them for 7 hours**. Every request after that uses the cached copy.
+
+This means changes made to a key in the admin panel — adding or removing a permission, deactivating it — **do not take effect for up to 7 hours** on their own. To apply a change immediately, call [`POST /self/refresh`](./api/self/refresh) once with that key after you change it. You do not need to call it before normal requests.
+
+:::caution Deactivating or deleting a leaked key
+A deactivated or deleted key keeps working until its cache entry expires (up to 7 hours) or until `POST /self/refresh` is called with it. If a key has leaked, call `POST /self/refresh` with that key right after deactivating it — the API then clears it from the cache and rejects it from that point on.
+:::
+
+To see what a key can do right now, call [`GET /self/who-am-i`](./api/self/who-am-i).

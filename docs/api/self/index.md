@@ -1,12 +1,15 @@
 ---
 title: Self
+sidebar_label: Overview
 ---
 
 # Self
 
-Endpoints for inspecting the API key making the request — its organization and the permissions it holds. Everything under `/self` requires the `X-API-Key` header described in [Authentication](../../authentication).
+"Self" means **the API key making the request**. These endpoints tell you which organization the key belongs to and what it is allowed to do. They need a valid `x-api-key` header ([Authentication](../../authentication)) but no specific permission.
 
-| Method | Endpoint | Description |
-|--------|----------|--------------|
-| `GET` | [`/self/who-am-i`](./who-am-i) | Return the organization and permissions tied to the current API key |
-| `POST` | [`/self/refresh`](./refresh) | Refresh the cached session for the current API key |
+| Method | Endpoint | Use it to |
+|--------|----------|-----------|
+| `GET` | [`/self/who-am-i`](./who-am-i) | Check a key works and see its organization ID and permissions |
+| `POST` | [`/self/refresh`](./refresh) | Apply a change made to the key in the admin panel immediately, instead of waiting up to 7 hours |
+
+Typical use: call **Who Am I** once when your integration starts, to confirm the key is valid and has the permissions you need. Call **Refresh** only after someone edits the key in the admin panel — not before every request.

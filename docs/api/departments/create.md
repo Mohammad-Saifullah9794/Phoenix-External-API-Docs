@@ -4,7 +4,7 @@ title: Create Department
 
 # Create Department
 
-Creates a new department in your organization.
+Creates a department in your organization. Departments group identities — assign one by passing its `department_id` to [Create Identity](../identities/create) or [Update Identity](../identities/update).
 
 <ApiEndpoint method="POST" path="/department/create" auth={true} />
 
@@ -15,16 +15,16 @@ Requires the `department:create` permission. See [Permissions](../../permissions
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 | `Content-Type` | Yes | Must be `application/json`. |
 
 ## Request Body
 
 | Field | Type | Required | Description |
-|-------|------|----------|--------------|
-| `department_name` | `string` | Yes | Department name |
-| `details` | `object` | Yes | Free-form department metadata |
+|-------|------|----------|-------------|
+| `department_name` | `string` | Yes | Department name. Up to 250 characters; must be unique within your organization. |
+| `details` | `object` | Yes | Custom JSON to store with the department, e.g. `{"cost_center": "CC-104"}`. Send `{}` if unused. |
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
@@ -89,8 +89,8 @@ print(response.json())
 ```
 
 | Field | Type | Description |
-|-------|------|--------------|
-| `department_id` | `string` (UUID) | The newly created department's ID |
+|-------|------|-------------|
+| `department_id` | `string` (UUID) | ID of the new department. Save it — you need it for Get, Update and Delete. |
 | `result` | `integer` | Number of rows inserted (always `1` on success) |
 
 </TabItem>
@@ -103,10 +103,23 @@ print(response.json())
 ```
 
 </TabItem>
+<TabItem value="417" label="417 Expectation Failed">
+
+A department with this name already exists in your organization (or the name is longer than 250 characters).
+
+```json
+{
+  "error": "PostgreSQL error: duplicate key value violates unique constraint ..."
+}
+```
+
+</TabItem>
 </Tabs>
 
 ## Errors
 
 | Status | Meaning |
 |--------|---------|
+| `400` | Body is not valid JSON, or a field is missing (plain text) |
 | `401` | Missing/invalid `x-api-key`, or missing `department:create` permission |
+| `417` | Duplicate name, or name longer than 250 characters |

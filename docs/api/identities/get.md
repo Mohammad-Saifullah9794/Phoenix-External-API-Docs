@@ -15,13 +15,13 @@ Requires the `identity:view` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
+|-----------|------|-------------|
 | `email_id` | `string` | The identity's email address, e.g. `jane.doe@example.com` |
 
 ## Request
@@ -92,20 +92,20 @@ print(response.json())
 #### Response Fields
 
 | Field | Type | Description |
-|-------|------|--------------|
+|-------|------|-------------|
 | `email` | `string` | The identity's email address |
 | `domain_name` | `string` | The domain this identity belongs to |
 | `first_name` | `string` | First name |
 | `last_name` | `string` or `null` | Last name |
-| `primary_phone` | `string` | Primary phone number |
+| `primary_phone` | `string` | Primary phone number, as entered (no format is enforced) |
 | `secondary_email` | `string` or `null` | Secondary/recovery email |
 | `is_app_2fa_enabled` | `boolean` | Whether authenticator-app 2FA is enabled |
 | `is_sms_2fa_enabled` | `boolean` | Whether SMS 2FA is enabled |
 | `is_email_2fa_enabled` | `boolean` | Whether email 2FA is enabled |
-| `restriction_policy_id` | `string` (UUID) or `null` | Applied restriction policy, if any |
-| `department_id` | `string` (UUID) or `null` | Assigned department, if any |
-| `is_password_expired` | `boolean` | Whether the current password has expired |
-| `is_enabled` | `boolean` | Whether the identity is enabled |
+| `restriction_policy_id` | `string` (UUID) or `null` | Restriction policy applied, if any (created in the admin panel under **Policies**) |
+| `department_id` | `string` (UUID) or `null` | [Department](../departments) the identity belongs to, if any |
+| `is_password_expired` | `boolean` | `true` when the password has expired under the domain's password-age policy (`max_password_age`). Setting a new password with [Reset Password](./reset-password) sets it back to `false`. |
+| `is_enabled` | `boolean` | `false` means the user cannot sign in |
 | `password_updated_at` | `string` (ISO 8601) | When the password was last changed |
 | `created_at` | `string` (ISO 8601) | When the identity was created |
 | `updated_at` | `string` (ISO 8601) | When the identity was last updated |
@@ -123,7 +123,7 @@ print(response.json())
 </Tabs>
 
 :::note Identity not found
-If `email_id` doesn't exist, the API currently returns `200 OK` with a JSON `null` body rather than a `404`.
+If `email_id` doesn't exist or is on a domain your organization doesn't own, the API returns `200 OK` with the body `null` rather than a `404`.
 :::
 
 ## Errors

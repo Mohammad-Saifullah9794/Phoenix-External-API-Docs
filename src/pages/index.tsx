@@ -30,11 +30,7 @@ export default function Home() {
           <div className={styles.gradientBlur3} />
 
           <div className={styles.container}>
-            <div className={styles.badge}>
-              <span className={styles.pulse} />
-              <span className={styles.pulseDot} />
-              Public Preview
-            </div>
+            
 
             <h1 className={styles.title}>
               Build faster with

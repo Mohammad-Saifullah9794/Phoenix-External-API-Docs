@@ -1,45 +1,59 @@
 ---
 sidebar_position: 1
+title: Introduction
 ---
 
 # Introduction
 
-Welcome to the Phoenix Admin API documentation. The API is built in Rust on Actix Web and is currently in **active early-stage development** — the reference below covers what's live today and will grow as new resources ship.
+The Phoenix Admin API lets your own software do what an administrator does in the **Phoenix Admin Panel** — list your domains, create and manage identities, reset passwords, and organize people into departments — using an API key instead of a login.
 
-:::warning Early Stage
-This API is public and under active development. Endpoints, request/response shapes, and permission names may change without a deprecation period until the API reaches a stable release.
+:::warning Under active development
+New endpoints are being added (mailboxes are next). Existing request and response shapes may still change before a stable release. Changes are tracked in the [API source repository](https://github.com/Yukthi-Systems/Phoenix-External-API/commits).
 :::
 
 ## Base URL
 
-Every request in this reference is shown against a placeholder:
+The **base URL** is the address of the API server. Every endpoint path in these docs is added to the end of it to form the full request URL.
 
-```
-<BASE_URL>
-```
+| Environment | Base URL |
+|-------------|----------|
+| Test | `https://v3-api.test.yukthi.net` |
 
-Replace `<BASE_URL>` with the base URL for your environment. Contact us if you don't have one yet.
+For example, the [Who Am I](./api/self/who-am-i) endpoint is documented as `GET /self/who-am-i`, so the full URL you call is:
+
+`https://v3-api.test.yukthi.net/self/who-am-i`
+
+In the code samples, the base URL is written as `<BASE_URL>` and your key as `<API_KEY>`. Replace both before running a sample. You can also see the base URL in the admin panel under **Settings → API Keys**.
+
+## Quick start
+
+1. **Create an API key** in the admin panel — see [Create an API key](./api-keys). Copy the secret straight away, because it is only shown once.
+2. **Check that the API is reachable** — open [`https://v3-api.test.yukthi.net/health/api`](https://v3-api.test.yukthi.net/health/api) in your browser. You should see `API is healthy!`.
+3. **Make your first authenticated call:**
+
+   ```bash
+   curl 'https://v3-api.test.yukthi.net/self/who-am-i' \
+     --header 'x-api-key: <API_KEY>'
+   ```
+
+   The response shows your organization ID and the permissions your key holds.
+4. **Call the endpoints your key has permission for.** The [Permissions](./permissions) page lists which permission each endpoint needs.
 
 ## What's available today
 
-- **[API Health](./api/health)** — an unauthenticated check that the API, database, and cache are all reachable
-- **[Self](./api/self)** — inspect the organization and permissions tied to your API key, and refresh its cached session
-- **[Organization](./api/organization)** — read your organization's quota, identity allocation, and enabled services
-- **[Domains](./api/domains)** — list domains and update a limited set of domain settings
-- **[Identities](./api/identities)** — list, read, update, delete identities within a domain, and reset their passwords
-- **[Departments](./api/departments)** — full CRUD for organizing identities into departments
+| Area | What you can do |
+|------|-----------------|
+| [API Health](./api/health) | Check that the API, its database and its cache are up (no key needed) |
+| [Self](./api/self) | See the organization and permissions of your key, and reload them after a change |
+| [Organization](./api/organization) | Read your organization's details, identity allocation and storage quota |
+| [Domains](./api/domains) | List domains, read one, and update a limited set of domain settings |
+| [Identities](./api/identities) | Create, list, read, update and delete identities, and reset their passwords |
+| [Departments](./api/departments) | Create, list, read, update and delete departments |
 
-## Authentication at a glance
+Before you build, it is worth reading [Pagination](./pagination) (used by every list endpoint) and [Errors](./errors) (the error format and what each status code means).
 
-Every protected endpoint expects an `X-API-Key` header, and most also require a specific permission on that key. See the [Authentication](./authentication) guide for the header details, [Permissions](./permissions) for the full permission list, and [Who Am I](./api/self/who-am-i) to check what a given key is allowed to do.
+## Tools and source code
 
-## What's coming next
-
-Mailbox management is scaffolded in the API but not yet exposed publicly. It'll be documented here once it ships.
-
-## Getting Started
-
-1. **Check [API Health](./api/health)** to confirm you can reach the API
-2. **Read [Authentication](./authentication)** to obtain and use your `X-API-Key`
-3. **Call [Who Am I](./api/self/who-am-i)** to verify your key and see its permissions
-4. **Browse [Permissions](./permissions)** to see what each permission unlocks
+- **Postman collection** — [download it here](pathname:///postman/collection.json), import it into Postman, then set the `API_KEY` collection variable. `BASE_URL` is already set to the test environment.
+- **API source code** — [Yukthi-Systems/Phoenix-External-API](https://github.com/Yukthi-Systems/Phoenix-External-API)
+- **Docs source code** — [Yukthi-Systems/Phoenix-External-API-Docs](https://github.com/Yukthi-Systems/Phoenix-External-API-Docs). Spotted a mistake? Use the **Edit this page** link at the bottom of any page to propose a fix.

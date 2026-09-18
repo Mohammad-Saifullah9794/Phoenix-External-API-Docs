@@ -15,14 +15,14 @@ Requires the `department:view` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
-| `department_id` | `string` (UUID) | The department to look up |
+|-----------|------|-------------|
+| `department_id` | `string` (UUID) | The department's ID — the `department_id` returned by [Create Department](./create) or [List Departments](./list). Replace `<DEPARTMENT_ID>` in the examples with it. |
 
 ## Request
 
@@ -30,7 +30,7 @@ Requires the `department:view` permission. See [Permissions](../../permissions).
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl --location '<BASE_URL>/department/info/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e' \
+curl --location '<BASE_URL>/department/info/<DEPARTMENT_ID>' \
 --header 'x-api-key: <API_KEY>'
 ```
 
@@ -39,7 +39,7 @@ curl --location '<BASE_URL>/department/info/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e
 
 ```js
 const response = await fetch(
-  '<BASE_URL>/department/info/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e',
+  '<BASE_URL>/department/info/<DEPARTMENT_ID>',
   { headers: { 'x-api-key': '<API_KEY>' } },
 );
 
@@ -54,7 +54,7 @@ console.log(department);
 import requests
 
 response = requests.get(
-    '<BASE_URL>/department/info/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e',
+    '<BASE_URL>/department/info/<DEPARTMENT_ID>',
     headers={'x-api-key': '<API_KEY>'},
 )
 print(response.json())
@@ -81,10 +81,10 @@ print(response.json())
 #### Response Fields
 
 | Field | Type | Description |
-|-------|------|--------------|
+|-------|------|-------------|
 | `department_id` | `string` (UUID) | The department's ID |
 | `department_name` | `string` | Department name |
-| `details` | `object` | Free-form department metadata |
+| `details` | `object` | Custom JSON you stored with the department (e.g. `{"cost_center": "CC-104"}`); `{}` if unused |
 | `created_at` | `string` (ISO 8601) | When the department was created |
 | `updated_at` | `string` (ISO 8601) | When the department was last updated |
 
@@ -101,7 +101,7 @@ print(response.json())
 </Tabs>
 
 :::note Department not found
-If `department_id` doesn't exist, the API currently returns `200 OK` with a JSON `null` body rather than a `404`.
+If `department_id` doesn't exist or belongs to another organization, the API returns `200 OK` with the body `null` rather than a `404`. If it isn't a valid UUID, you get `404` with a plain-text body.
 :::
 
 ## Errors

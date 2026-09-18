@@ -11,7 +11,7 @@ Returns the organization and permission set tied to the `X-API-Key` used on the 
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 
 ## Request
@@ -36,6 +36,7 @@ const response = await fetch('<BASE_URL>/self/who-am-i', {
   },
 });
 
+// Node.js 18+ (save as .mjs to use top-level await)
 const session = await response.json();
 console.log(session);
 ```
@@ -66,22 +67,24 @@ print(response.json())
   "api_key": "<API_KEY>",
   "organization_id": "9185b224-89ee-72df-8530-b2473f54530b",
   "permissions": [
+    "organization:view",
     "domain:view",
-    "mailbox:view"
+    "department:view",
+    "department:create"
   ]
 }
 ```
 
 | Field | Type | Description |
-|-------|------|--------------|
+|-------|------|-------------|
 | `api_key` | `string` (UUID) | The API key that made the request, echoed back |
-| `organization_id` | `string` (UUID) | The organization this key belongs to |
-| `permissions` | `string[]` | Permission strings granted to this key, in `resource:action` form |
+| `organization_id` | `string` (UUID) | The organization this key belongs to. It's the same value as `organization_id` from [Get Organization](../organization). |
+| `permissions` | `string[]` | Every permission granted to this key, in `resource:action` form. See [Permissions](../../permissions) for what each one unlocks. The list is in the order it was saved, not sorted. |
 
 </TabItem>
 <TabItem value="401" label="401 Unauthorized">
 
-The key is missing, malformed, or doesn't match an active key.
+The key is missing, not a UUID, or doesn't match an active key. The body is plain text.
 
 ```text
 Unauthorized: Invalid API Key
@@ -98,4 +101,4 @@ Unauthorized: Invalid API Key
 
 ## Notes
 
-Session lookups are cached in Redis after the first request. If you've just updated a key's permissions and need the change reflected immediately, call [Refresh Session](./refresh) to bust the cache.
+The result is cached for up to 7 hours. If the key was edited in the admin panel and this endpoint still shows the old permissions, call [Refresh Session](./refresh) once.
