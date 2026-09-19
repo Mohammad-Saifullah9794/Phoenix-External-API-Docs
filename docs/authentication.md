@@ -25,8 +25,8 @@ Header names are not case-sensitive, so `X-API-Key` works too. Do not add a pref
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl '<BASE_URL>/self/who-am-i' \
-  --header 'x-api-key: <API_KEY>'
+curl --location '<BASE_URL>/self/who-am-i' \
+--header 'x-api-key: <API_KEY>'
 ```
 
 </TabItem>

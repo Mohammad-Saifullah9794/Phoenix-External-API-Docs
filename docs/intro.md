@@ -15,24 +15,16 @@ New endpoints are being added (mailboxes are next). Existing request and respons
 
 The **base URL** is the address of the API server. Every endpoint path in these docs is added to the end of it to form the full request URL.
 
-| Environment | Base URL |
-|-------------|----------|
-| Test | `https://v3-api.test.yukthi.net` |
-
-For example, the [Who Am I](./api/self/who-am-i) endpoint is documented as `GET /self/who-am-i`, so the full URL you call is:
-
-`https://v3-api.test.yukthi.net/self/who-am-i`
-
-In the code samples, the base URL is written as `<BASE_URL>` and your key as `<API_KEY>`. Replace both before running a sample. You can also see the base URL in the admin panel under **Settings → API Keys**.
+In the code samples, the base URL is written as `<BASE_URL>` and your key as `<API_KEY>`. Replace both before running a sample.
 
 ## Quick start
 
 1. **Create an API key** in the admin panel — see [Create an API key](./api-keys). Copy the secret straight away, because it is only shown once.
-2. **Check that the API is reachable** — open [`https://v3-api.test.yukthi.net/health/api`](https://v3-api.test.yukthi.net/health/api) in your browser. You should see `API is healthy!`.
+2. **Check that the API is reachable** — open `<BASE_URL>/health/api` in your browser. You should see `API is healthy!`.
 3. **Make your first authenticated call:**
 
    ```bash
-   curl 'https://v3-api.test.yukthi.net/self/who-am-i' \
+   curl '<BASE_URL>/self/who-am-i' \
      --header 'x-api-key: <API_KEY>'
    ```
 

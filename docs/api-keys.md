@@ -13,7 +13,7 @@ API keys are created and managed by an administrator in the **Phoenix Admin Pane
 
 ## 1. Open API Keys
 
-Sign in to the admin panel, open **Settings** in the left menu and choose **API Keys**. The page lists existing keys and shows the **Base URL** your keys work with, plus a link back to these docs. Click **Create**.
+Sign in to the admin panel, open **Settings** in the left menu and choose **API Keys**. The page lists existing keys. Click **Create**.
 
 ![API Keys list in the admin panel](/img/admin-panel/api-key-view.png)
 
