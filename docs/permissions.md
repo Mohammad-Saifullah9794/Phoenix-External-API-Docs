@@ -20,8 +20,11 @@ Each API key holds a list of permission strings, chosen when the key is created 
 | `department:create` | [Create Department](./api/departments/create) |
 | `department:edit` | [Update Department](./api/departments/update) |
 | `department:delete` | [Delete Department](./api/departments/delete) |
+| `mailbox:view` | [List Mailboxes](./api/mailbox/list), [Get Mailbox](./api/mailbox/get) |
+| `mailbox:create` | [Create Mailbox](./api/mailbox/create) |
+| `mailbox:edit` | [Update Mailbox](./api/mailbox/update), [Update Mailbox Quota](./api/mailbox/quota) |
 
-The [API Health](./api/health) and [Self](./api/self) endpoints need a valid key (Self) or nothing at all (Health), but no specific permission.
+The [API Health](./api/health) and [Self](./api/self) endpoints need a valid key (Self) or nothing at all (Health), but no specific permission. [Delete Mailbox](./api/mailbox/delete) also needs no specific permission today — see the note below.
 
 ## What happens without the permission
 
@@ -38,7 +41,7 @@ If you just added the permission in the admin panel, call [`POST /self/refresh`]
 ## Permissions offered in the admin panel but not used yet
 
 - `domain:create` and `domain:delete` — domains can only be created or deleted from the admin panel, so the API has no endpoint for these.
-- `mailbox:view`, `mailbox:create`, `mailbox:edit`, `mailbox:delete` — mailbox endpoints are being added and will be documented here when they're released.
+- `mailbox:delete` — [Delete Mailbox](./api/mailbox/delete) exists, but the endpoint doesn't check this permission yet; any valid key with access to the domain can delete a mailbox on it.
 
 :::tip Grant the least you need
 There are no preset bundles such as "read-only" or "admin" — tick each permission individually. A reporting script only needs the `:view` permissions.

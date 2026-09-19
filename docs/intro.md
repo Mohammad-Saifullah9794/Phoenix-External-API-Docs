@@ -8,7 +8,7 @@ title: Introduction
 The Phoenix Admin API lets your own software do what an administrator does in the **Phoenix Admin Panel** — list your domains, create and manage identities, reset passwords, and organize people into departments — using an API key instead of a login.
 
 :::warning Under active development
-New endpoints are being added (mailboxes are next). Existing request and response shapes may still change before a stable release. Changes are tracked in the [API source repository](https://github.com/Yukthi-Systems/Phoenix-External-API/commits).
+New endpoints are being added. Existing request and response shapes may still change before a stable release. Changes are tracked in the [API source repository](https://github.com/Yukthi-Systems/Phoenix-External-API/commits).
 :::
 
 ## Base URL
@@ -41,6 +41,7 @@ In the code samples, the base URL is written as `<BASE_URL>` and your key as `<A
 | [Domains](./api/domains) | List domains, read one, and update a limited set of domain settings |
 | [Identities](./api/identities) | Create, list, read, update and delete identities, and reset their passwords |
 | [Departments](./api/departments) | Create, list, read, update and delete departments |
+| [Mailboxes](./api/mailbox) | Create, list, read, update, delete and resize the storage quota of mailboxes |
 
 Before you build, it is worth reading [Pagination](./pagination) (used by every list endpoint) and [Errors](./errors) (the error format and what each status code means).
 

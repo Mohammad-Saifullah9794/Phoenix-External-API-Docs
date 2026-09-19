@@ -398,6 +398,147 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Mailboxes",
+			"item": [
+				{
+					"name": "List Mailboxes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/mailbox/list/example.com?limit=10&offset=0",
+							"host": ["{{BASE_URL}}"],
+							"path": ["mailbox", "list", "example.com"],
+							"query": [
+								{ "key": "limit", "value": "10" },
+								{ "key": "offset", "value": "0" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Mailbox",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/mailbox/info/jane.doe@example.com",
+							"host": ["{{BASE_URL}}"],
+							"path": ["mailbox", "info", "jane.doe@example.com"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Mailbox",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"jane.doe@example.com\",\n  \"domain_name\": \"example.com\",\n  \"forwarding_policy_id\": null,\n  \"distribution_policy_id\": null,\n  \"general_policy_id\": null,\n  \"quota_allocated\": 5.0\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mailbox/create",
+							"host": ["{{BASE_URL}}"],
+							"path": ["mailbox", "create"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Mailbox",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"jane.doe@example.com\",\n  \"domain_name\": \"example.com\",\n  \"is_enabled\": true,\n  \"forwarding_policy_id\": null,\n  \"distribution_policy_id\": null,\n  \"general_policy_id\": null\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mailbox/update",
+							"host": ["{{BASE_URL}}"],
+							"path": ["mailbox", "update"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Mailbox Quota",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"jane.doe@example.com\",\n  \"domain_name\": \"example.com\",\n  \"new_quota_allocated\": 10.0\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mailbox/update/quota",
+							"host": ["{{BASE_URL}}"],
+							"path": ["mailbox", "update", "quota"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Mailbox",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/mailbox/delete/example.com/jane.doe",
+							"host": ["{{BASE_URL}}"],
+							"path": ["mailbox", "delete", "example.com", "jane.doe"]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

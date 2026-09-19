@@ -65,6 +65,22 @@ const sidebars: SidebarsConfig = {
         'api/departments/delete',
       ],
     },
+    {
+      type: 'category',
+      label: 'Mailboxes',
+      link: {
+        type: 'doc',
+        id: 'api/mailbox/index',
+      },
+      items: [
+        'api/mailbox/list',
+        'api/mailbox/get',
+        'api/mailbox/create',
+        'api/mailbox/update',
+        'api/mailbox/quota',
+        'api/mailbox/delete',
+      ],
+    },
   ],
 };
 

@@ -34,7 +34,7 @@ A few errors come back as **plain text** instead of JSON — an invalid API key,
 | `503 Service Unavailable` | `Redis:` | The API's cache is unreachable | Retry later; contact support if it persists |
 
 :::note Get endpoints return `null`, not 404
-[Get Domain](./api/domains/get), [Get Identity](./api/identities/get) and [Get Department](./api/departments/get) return `200 OK` with the body `null` when the record doesn't exist or belongs to another organization. Check for `null` before reading fields.
+[Get Domain](./api/domains/get), [Get Identity](./api/identities/get), [Get Department](./api/departments/get) and [Get Mailbox](./api/mailbox/get) return `200 OK` with the body `null` when the record doesn't exist or belongs to another organization. Check for `null` before reading fields.
 :::
 
 ## Request format errors

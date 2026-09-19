@@ -5,7 +5,7 @@ title: Pagination
 
 # Pagination
 
-Every list endpoint ([List Domains](./api/domains/list), [List Identities](./api/identities/list), [List Departments](./api/departments/list)) returns results one page at a time.
+Every list endpoint ([List Domains](./api/domains/list), [List Identities](./api/identities/list), [List Departments](./api/departments/list), [List Mailboxes](./api/mailbox/list)) returns results one page at a time.
 
 ## Query parameters
 
@@ -32,7 +32,7 @@ To get page *N* with page size *L*, use `offset = (N − 1) × L`. For example, 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `items` | `array` | The records on this page. The object type depends on the endpoint (Domain, Identity or Department). |
+| `items` | `array` | The records on this page. The object type depends on the endpoint (Domain, Identity, Department or Mailbox). |
 | `total` | `integer` | Total number of matching records across all pages |
 | `current_count` | `integer` | Number of records in `items` on this page (at most `limit`) |
 | `current_page` | `integer` | Page number, starting at 1, calculated as `offset ÷ limit + 1` (rounded down) |
