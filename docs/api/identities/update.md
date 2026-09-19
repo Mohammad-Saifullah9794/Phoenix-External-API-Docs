@@ -4,7 +4,9 @@ title: Update Identity
 
 # Update Identity
 
-Updates an identity's profile fields. The identity to update is identified by `email` and `domain_name` in the request body, not by a path parameter — and this replaces the full editable profile, not just the fields you pass.
+Updates an identity's profile. The identity is chosen by `email` and `domain_name` **in the body**, not in the URL.
+
+This is a **full replace**: every field is written on each call. Optional fields you leave out are set to `null` — for example, omitting `department_id` removes the identity from its department. Fetch the current values with [Get Identity](./get) first and send them back with your changes. To change the password, use [Reset Password](./reset-password).
 
 <ApiEndpoint method="PATCH" path="/identity/update" auth={true} />
 
@@ -15,25 +17,25 @@ Requires the `identity:edit` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 | `Content-Type` | Yes | Must be `application/json`. |
 
 ## Request Body
 
 | Field | Type | Required | Description |
-|-------|------|----------|--------------|
-| `email` | `string` | Yes | The identity to update. Must not be empty. |
-| `domain_name` | `string` | Yes | Must match the domain part of `email`, and be a domain your organization can access. |
+|-------|------|----------|-------------|
+| `email` | `string` | Yes | The identity to update. Lowercase only. Cannot be changed. |
+| `domain_name` | `string` | Yes | Must equal the part of `email` after `@`, and be one of your active, DNS-verified domains. Lowercase only. |
 | `first_name` | `string` | Yes | First name. Must not be empty. |
-| `last_name` | `string` or `null` | No | Last name |
+| `last_name` | `string` or `null` | No | Last name. Omitted = `null`. |
 | `primary_phone` | `string` | Yes | Primary phone number. Must not be empty. |
-| `secondary_email` | `string` or `null` | No | Secondary/recovery email |
+| `secondary_email` | `string` or `null` | No | Secondary / recovery email. Omitted = `null`. |
 | `is_app_2fa_enabled` | `boolean` | Yes | Whether authenticator-app 2FA is enabled |
 | `is_sms_2fa_enabled` | `boolean` | Yes | Whether SMS 2FA is enabled |
 | `is_email_2fa_enabled` | `boolean` | Yes | Whether email 2FA is enabled |
-| `restriction_policy_id` | `string` (UUID) or `null` | No | Restriction policy to apply |
-| `department_id` | `string` (UUID) or `null` | No | Department to assign |
+| `restriction_policy_id` | `string` (UUID) or `null` | No | Restriction policy to apply. Omitted = `null`. |
+| `department_id` | `string` (UUID) or `null` | No | Department to assign ([List Departments](../departments/list)). Omitted = `null`. |
 | `is_enabled` | `boolean` | Yes | Whether the identity is enabled |
 
 <Tabs groupId="code-samples">
@@ -133,7 +135,7 @@ The number of rows updated (always `1` on success).
 </TabItem>
 <TabItem value="400" label="400 Bad Request">
 
-A required field is empty, or `domain_name` doesn't match the domain part of `email`.
+A field failed validation. Possible messages: `Email cannot be empty`, `Domain name cannot be empty`, `First name cannot be empty`, `Primary phone cannot be empty`, `Email should not contain uppercase characters`, `Domain name should not contain uppercase characters`, `Invalid email format`, `Email domain does not match the specified domain name`.
 
 ```json
 {
@@ -181,3 +183,4 @@ A required field is empty, or `domain_name` doesn't match the domain part of `em
 | `401` | Missing/invalid `x-api-key`, or missing `identity:edit` permission |
 | `403` | `domain_name` is not accessible to your organization |
 | `404` | Identity not found |
+| `417` | `department_id` or `restriction_policy_id` doesn't exist |

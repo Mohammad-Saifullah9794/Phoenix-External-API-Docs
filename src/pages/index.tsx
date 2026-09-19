@@ -30,11 +30,7 @@ export default function Home() {
           <div className={styles.gradientBlur3} />
 
           <div className={styles.container}>
-            <div className={styles.badge}>
-              <span className={styles.pulse} />
-              <span className={styles.pulseDot} />
-              Public Preview
-            </div>
+            
 
             <h1 className={styles.title}>
               Build faster with
@@ -68,6 +64,22 @@ export default function Home() {
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
                 </svg>
                 <span>Download Postman Collection</span>
+              </a>
+              <a
+                href="https://github.com/Yukthi-Systems/Phoenix-External-API"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.secondaryBtn}
+              >
+                <span>API Source on GitHub</span>
+              </a>
+              <a
+                href="https://github.com/Yukthi-Systems/Phoenix-External-API-Docs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.secondaryBtn}
+              >
+                <span>Docs Source on GitHub</span>
               </a>
             </div>
 
@@ -178,6 +190,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
       </Layout>
 
       <style>

@@ -4,7 +4,9 @@ title: Delete Identity
 
 # Delete Identity
 
-Permanently deletes an identity.
+Permanently deletes an identity. Your organization's `utilized_email_identities` ([Get Organization](../organization)) goes down by 1.
+
+An identity that still has a **mailbox, chat account or file-storage account** cannot be deleted — remove those first, otherwise you get `409 Conflict`.
 
 <ApiEndpoint method="DELETE" path="/identity/delete/{email_id}" auth={true} />
 
@@ -15,13 +17,13 @@ Requires the `identity:delete` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
+|-----------|------|-------------|
 | `email_id` | `string` | The identity's email address, e.g. `jane.doe@example.com` |
 
 ## Request
@@ -96,6 +98,17 @@ The number of rows deleted (always `1` on success).
 ```
 
 </TabItem>
+<TabItem value="409" label="409 Conflict">
+
+The identity still has a mailbox, chat or file account.
+
+```json
+{
+  "error": "Conflict: Identity has associated services and cannot be deleted"
+}
+```
+
+</TabItem>
 </Tabs>
 
 :::danger Irreversible
@@ -108,3 +121,4 @@ Deleting an identity cannot be undone via the API.
 |--------|---------|
 | `401` | Missing/invalid `x-api-key`, or missing `identity:delete` permission |
 | `404` | Identity not found for your organization |
+| `409` | Identity still has a mailbox, chat or file account |

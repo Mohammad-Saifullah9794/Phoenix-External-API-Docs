@@ -15,13 +15,13 @@ Requires the `domain:view` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
+|-----------|------|-------------|
 | `domain_name` | `string` | The domain to look up, e.g. `example.com` |
 
 ## Request
@@ -97,10 +97,10 @@ print(response.json())
 #### Response Fields
 
 | Field | Type | Description |
-|-------|------|--------------|
+|-------|------|-------------|
 | `domain_name` | `string` | The domain name |
-| `anti_phishing_secret_code` | `string` | Secret code embedded in outbound mail to help recipients detect spoofing |
-| `details` | `object` | Free-form domain metadata |
+| `anti_phishing_secret_code` | `string` | Anti-phishing secret code configured for this domain in the admin panel |
+| `details` | `object` | Custom JSON stored with the domain (set via the admin panel or [Update Domain](./update)); `{}` if unused |
 | `is_active` | `boolean` | Whether the domain is active |
 | `is_dns_txt_verified` | `boolean` | Whether domain ownership has been verified via DNS TXT record |
 | `dns_txt_verification_key` | `string` | The TXT record value expected for verification |

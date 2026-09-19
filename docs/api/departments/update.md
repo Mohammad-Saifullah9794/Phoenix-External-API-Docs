@@ -4,7 +4,7 @@ title: Update Department
 
 # Update Department
 
-Updates a department's name and metadata.
+Updates a department's name and `details`. Both fields are required and both are replaced — to keep existing `details`, send them back unchanged (get them from [Get Department](./get)).
 
 <ApiEndpoint method="PATCH" path="/department/update/{department_id}" auth={true} />
 
@@ -15,28 +15,28 @@ Requires the `department:edit` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 | `Content-Type` | Yes | Must be `application/json`. |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
-| `department_id` | `string` (UUID) | The department to update |
+|-----------|------|-------------|
+| `department_id` | `string` (UUID) | The department's ID — the `department_id` returned by [Create Department](./create) or [List Departments](./list). Replace `<DEPARTMENT_ID>` in the examples with it. |
 
 ## Request Body
 
 | Field | Type | Required | Description |
-|-------|------|----------|--------------|
-| `department_name` | `string` | Yes | New department name |
-| `details` | `object` | Yes | Free-form department metadata |
+|-------|------|----------|-------------|
+| `department_name` | `string` | Yes | New name. Up to 250 characters; must be unique within your organization. |
+| `details` | `object` | Yes | Custom JSON to store with the department. Send `{}` if unused. |
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl --location --request PATCH '<BASE_URL>/department/update/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e' \
+curl --location --request PATCH '<BASE_URL>/department/update/<DEPARTMENT_ID>' \
 --header 'x-api-key: <API_KEY>' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -50,7 +50,7 @@ curl --location --request PATCH '<BASE_URL>/department/update/7f9c2a10-4e3b-4c8a
 
 ```js
 const response = await fetch(
-  '<BASE_URL>/department/update/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e',
+  '<BASE_URL>/department/update/<DEPARTMENT_ID>',
   {
     method: 'PATCH',
     headers: {
@@ -75,7 +75,7 @@ console.log(result);
 import requests
 
 response = requests.patch(
-    '<BASE_URL>/department/update/7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e',
+    '<BASE_URL>/department/update/<DEPARTMENT_ID>',
     headers={'x-api-key': '<API_KEY>'},
     json={'department_name': 'Platform Engineering', 'details': {}},
 )
@@ -122,4 +122,5 @@ The number of rows updated (always `1` on success).
 | Status | Meaning |
 |--------|---------|
 | `401` | Missing/invalid `x-api-key`, or missing `department:edit` permission |
-| `404` | Department not found for your organization |
+| `404` | Department not found for your organization, or `department_id` isn't a valid UUID |
+| `417` | Another department already has this name |

@@ -1,17 +1,25 @@
 ---
 sidebar_position: 2
+title: Authentication
 ---
 
 # Authentication
 
-All protected endpoints authenticate requests using an API key sent in the `X-API-Key` header. There is no separate login step — the key itself is the credential.
+Every endpoint except [API Health](./api/health) needs an API key. There is no login step and no token to refresh — you send the key itself with every request.
 
-## Authentication Header
+## Get a key
 
-**Header name**: `x-api-key` 
+API keys are created by an administrator in the Phoenix Admin Panel under **Settings → API Keys**. See [Create an API key](./api-keys) for a step-by-step guide. The key is a UUID such as `3f2b8c1e-7a4d-4e9b-8c2f-1d5e6a7b8c9d`.
 
+## Send the key in the `x-api-key` header
 
-**Header value**: your API key, a UUID (e.g. `<API_KEY>`)
+| Header name | Header value |
+|-------------|-------------|
+| `x-api-key` | Your API key (UUID) |
+
+Header names are not case-sensitive, so `X-API-Key` works too. Do not add a prefix such as `Bearer`.
+
+> **Base URL**: The root URL of the Phoenix Admin API. All API endpoints are accessed by appending the endpoint path to the Base URL. In the examples below, replace `<BASE_URL>` with this root URL and `<API_KEY>` with your API key.
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
@@ -24,16 +32,20 @@ curl --location '<BASE_URL>/self/who-am-i' \
 </TabItem>
 <TabItem value="node" label="Node.js">
 
+Requires Node.js 18 or later (built-in `fetch`). Save as `who-am-i.mjs` and run `node who-am-i.mjs`.
+
 ```js
 const response = await fetch('<BASE_URL>/self/who-am-i', {
-  headers: {
-    'x-api-key': '<API_KEY>',
-  },
+  headers: { 'x-api-key': '<API_KEY>' },
 });
+
+console.log(response.status, await response.text());
 ```
 
 </TabItem>
 <TabItem value="python" label="Python">
+
+Requires the `requests` package: `pip install requests`.
 
 ```python
 import requests
@@ -42,13 +54,14 @@ response = requests.get(
     '<BASE_URL>/self/who-am-i',
     headers={'x-api-key': '<API_KEY>'},
 )
+print(response.status_code, response.text)
 ```
 
 </TabItem>
 </Tabs>
 
 :::danger Keep your API key secret
-Anyone with your API key can make requests as your organization, scoped to whatever permissions the key holds. Never log it, commit it to version control, or expose it to client-side code.
+Anyone who has the key can act as your organization, within the permissions the key holds. Keep it on your server, never in browser or mobile app code, and never commit it to a repository. If a key leaks, deactivate or delete it in the admin panel and create a new one.
 :::
 
 ## How it's validated

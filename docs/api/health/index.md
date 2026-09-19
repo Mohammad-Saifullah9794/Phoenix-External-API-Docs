@@ -1,20 +1,19 @@
 ---
 title: API Health
+sidebar_label: API Health
 ---
-
-# API Health
 
 Confirms that the API server, its PostgreSQL connection pool, and its Redis cache are all reachable. This is a single combined check — a `200` means every dependency responded — so it's a good fit for load balancer and uptime-monitor probes.
 
 <ApiEndpoint method="GET" path="/health/api" auth={false} />
 
+> **Base URL**: `<BASE_URL>` in the samples below is the address of the API server — see [Base URL](../../intro#base-url) for the value for each environment. This is the only endpoint on this site that needs no API key, so you can try it directly in your browser using the test environment's base URL: `https://v3-api.test.yukthi.net/health/api`.
+
 ## Headers
 
-This endpoint does not require an `X-API-Key` header, so it can be safely wired into external monitoring tools without a credential.
+None. This endpoint does not need an API key, so you can point an uptime monitor or load balancer at it without sharing a credential.
 
-| Header | Required | Description |
-|--------|----------|--------------|
-| — | — | No headers required |
+The status indicator in the footer of this site calls this same endpoint every 60 seconds.
 
 ## Request
 
@@ -31,10 +30,9 @@ curl --location '<BASE_URL>/health/api'
 <TabItem value="node" label="Node.js">
 
 ```js
+// Node.js 18+; save as health.mjs and run: node health.mjs
 const response = await fetch('<BASE_URL>/health/api');
-const status = await response.text();
-
-console.log(status);
+console.log(response.status, await response.text());
 ```
 
 </TabItem>
@@ -44,7 +42,7 @@ console.log(status);
 import requests
 
 response = requests.get('<BASE_URL>/health/api')
-print(response.text)
+print(response.status_code, response.text)
 ```
 
 </TabItem>
@@ -55,7 +53,7 @@ print(response.text)
 <Tabs groupId="response-status">
 <TabItem value="200" label="200 OK">
 
-The API, database, and cache are all reachable.
+The API, database, and cache are all reachable. The body is plain text, not JSON.
 
 ```text
 API is healthy!
@@ -75,11 +73,11 @@ The PostgreSQL connection pool is exhausted or misconfigured.
 </TabItem>
 <TabItem value="417" label="417 Expectation Failed">
 
-The database driver returned an error while running the health query (e.g. connectivity was lost mid-check).
+The database returned an error while running the health query (e.g. connectivity was lost mid-check).
 
 ```json
 {
-  "error": "PostgreSQL: <driver error details>"
+  "error": "PostgreSQL client error: <details>"
 }
 ```
 

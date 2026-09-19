@@ -4,7 +4,9 @@ title: Reset Password
 
 # Reset Password
 
-Sets a new password for an identity. The password is sent Base64-encoded (not hashed) — the server hashes it before storing.
+Sets a new password for an identity — for example when a user is locked out. The new password works immediately, the old one stops working, and `is_password_expired` is set back to `false`.
+
+Send the password **Base64-encoded** (this is encoding, not encryption — always use HTTPS). The server hashes it before storing it.
 
 <ApiEndpoint method="PUT" path="/identity/update/password/{email_id}" auth={true} />
 
@@ -15,25 +17,37 @@ Requires the `identity:edit` permission. See [Permissions](../../permissions).
 ## Headers
 
 | Header | Required | Description |
-|--------|----------|--------------|
+|--------|----------|-------------|
 | `x-api-key` | Yes | Your API key, as a UUID. See [Authentication](../../authentication). |
 | `Content-Type` | Yes | Must be `application/json`. |
 
 ## Path Parameters
 
 | Parameter | Type | Description |
-|-----------|------|--------------|
+|-----------|------|-------------|
 | `email_id` | `string` | The identity's email address, e.g. `jane.doe@example.com` |
 
 ## Request Body
 
 | Field | Type | Required | Description |
-|-------|------|----------|--------------|
+|-------|------|----------|-------------|
 | `encoded_password` | `string` | Yes | The new password, Base64-encoded. See password rules below. |
 
-:::info Password rules
-Once Base64-decoded, the password must be **at least 8 characters**, contain **at least one uppercase letter, one lowercase letter, one digit, and one special character**, and contain **no whitespace**.
-:::
+### Password rules
+
+After Base64-decoding, the password must:
+
+| Rule | Error message if broken (`422`) |
+|------|--------------------------------|
+| Not be empty, and be valid Base64 | `Password cannot be empty` |
+| Be at least 8 characters | `Password must be at least 8 characters long` |
+| Contain an uppercase letter | `Password must contain at least one uppercase letter` |
+| Contain a lowercase letter | `Password must contain at least one lowercase letter` |
+| Contain a digit | `Password must contain at least one digit` |
+| Contain a special character (anything that isn't a letter or digit) | `Password must contain at least one special character` |
+| Contain no spaces or other whitespace | `Password must not contain whitespace characters` |
+
+Rules are checked in this order and only the first failure is reported. Invalid Base64 is treated as an empty password.
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
