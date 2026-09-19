@@ -101,4 +101,4 @@ Unauthorized: Invalid API Key
 
 ## Notes
 
-The result is cached for up to 7 hours. If the key was edited in the admin panel and this endpoint still shows the old permissions, call [Refresh Session](./refresh) once.
+Session lookups are cached in Redis after the first request. If you've just updated a key's permissions and need the change reflected immediately, call [Refresh Session](./refresh) to bust the cache.

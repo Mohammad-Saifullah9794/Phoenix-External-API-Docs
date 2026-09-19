@@ -5,13 +5,7 @@ const sidebars: SidebarsConfig = {
     'intro',
     'authentication',
     'permissions',
-    {
-      type: 'category',
-      label: 'API Health',
-      items: [
-        'api/health/index',
-      ],
-    },
+    'api/health/index',
     {
       type: 'category',
       label: 'Self',
@@ -31,8 +25,11 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Domains',
+      link: {
+        type: 'doc',
+        id: 'api/domains/index',
+      },
       items: [
-        'api/domains/index',
         'api/domains/list',
         'api/domains/get',
         'api/domains/update',
@@ -41,8 +38,11 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Identities',
+      link: {
+        type: 'doc',
+        id: 'api/identities/index',
+      },
       items: [
-        'api/identities/index',
         'api/identities/list',
         'api/identities/get',
         'api/identities/update',
@@ -53,8 +53,11 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Departments',
+      link: {
+        type: 'doc',
+        id: 'api/departments/index',
+      },
       items: [
-        'api/departments/index',
         'api/departments/list',
         'api/departments/get',
         'api/departments/create',

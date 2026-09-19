@@ -10,6 +10,6 @@ sidebar_label: Overview
 | Method | Endpoint | Use it to |
 |--------|----------|-----------|
 | `GET` | [`/self/who-am-i`](./who-am-i) | Check a key works and see its organization ID and permissions |
-| `POST` | [`/self/refresh`](./refresh) | Apply a change made to the key in the admin panel immediately, instead of waiting up to 7 hours |
+| `POST` | [`/self/refresh`](./refresh) | Apply a change made to the key in the admin panel immediately,  |
 
 Typical use: call **Who Am I** once when your integration starts, to confirm the key is valid and has the permissions you need. Call **Refresh** only after someone edits the key in the admin panel — not before every request.

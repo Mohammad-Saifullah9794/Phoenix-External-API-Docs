@@ -65,6 +65,22 @@ export default function Home() {
                 </svg>
                 <span>Download Postman Collection</span>
               </a>
+              <a
+                href="https://github.com/Yukthi-Systems/Phoenix-External-API"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.secondaryBtn}
+              >
+                <span>API Source on GitHub</span>
+              </a>
+              <a
+                href="https://github.com/Yukthi-Systems/Phoenix-External-API-Docs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.secondaryBtn}
+              >
+                <span>Docs Source on GitHub</span>
+              </a>
             </div>
 
             <div className={styles.stats}>
@@ -174,6 +190,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
       </Layout>
 
       <style>

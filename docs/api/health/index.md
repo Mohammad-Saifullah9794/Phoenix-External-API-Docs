@@ -3,15 +3,15 @@ title: API Health
 sidebar_label: API Health
 ---
 
-# API Health
-
 Confirms that the API server, its PostgreSQL connection pool, and its Redis cache are all reachable. This is a single combined check — a `200` means every dependency responded — so it's a good fit for load balancer and uptime-monitor probes.
 
 <ApiEndpoint method="GET" path="/health/api" auth={false} />
 
+> **Base URL**: `<BASE_URL>` in the samples below is the address of the API server — see [Base URL](../../intro#base-url) for the value for each environment. This is the only endpoint on this site that needs no API key, so you can try it directly in your browser using the test environment's base URL: [`https://v3-api.test.yukthi.net/health/api`](https://v3-api.test.yukthi.net/health/api).
+
 ## Headers
 
-None. This endpoint does not need an API key, so you can point an uptime monitor or load balancer at it without sharing a credential. Try it in your browser: [`https://v3-api.test.yukthi.net/health/api`](https://v3-api.test.yukthi.net/health/api).
+None. This endpoint does not need an API key, so you can point an uptime monitor or load balancer at it without sharing a credential.
 
 The status indicator in the footer of this site calls this same endpoint every 60 seconds.
 
