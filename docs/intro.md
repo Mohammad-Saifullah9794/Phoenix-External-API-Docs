@@ -49,7 +49,7 @@ Before you build, it is worth reading [Errors](./errors) (the error format and w
 
 ## Tools and source code
 
-- **Postman collection** — [download it here](pathname:///postman/collection.json), import it into Postman, then set the `API_KEY` collection variable. `BASE_URL` is already set to the test environment.
+- **Postman collection** — <a href="/postman/collection.json" download="Phoenix-Admin-API.postman_collection.json">download it here</a>, import it into Postman, then set the `API_KEY` collection variable. `BASE_URL` is already set to the test environment.
 - **API source code** — [Yukthi-Systems/Phoenix-External-API](https://github.com/Yukthi-Systems/Phoenix-External-API)
 - **Docs source code** — [Yukthi-Systems/Phoenix-External-API-Docs](https://github.com/Yukthi-Systems/Phoenix-External-API-Docs). 
 

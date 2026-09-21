@@ -10,7 +10,7 @@ Permanently deletes a mailbox and returns its allocated storage to your organiza
 
 ## Permissions
 
-No `mailbox:*` permission is currently checked for this endpoint — any valid, authenticated key with access to `domain_name` can delete a mailbox on it. See [Permissions](../../permissions).
+Requires the `mailbox:delete` permission. See [Permissions](../../permissions).
 
 ## Headers
 
@@ -71,6 +71,15 @@ print(response.status_code)
 Success has **no response body** — unlike the other Delete endpoints in this API, this one does not return a row count. Check the status code only.
 
 </TabItem>
+<TabItem value="401" label="401 Unauthorized">
+
+```json
+{
+  "error": "Unauthorized: Missing required permission: mailbox:delete"
+}
+```
+
+</TabItem>
 <TabItem value="403" label="403 Forbidden">
 
 `domain_name` isn't owned by your organization.
@@ -101,6 +110,6 @@ Deleting a mailbox cannot be undone via the API — its messages are gone along 
 
 | Status | Meaning |
 |--------|---------|
-| `401` | Missing, malformed, or inactive `x-api-key` (no specific permission is required) |
+| `401` | Missing/invalid `x-api-key`, or missing `mailbox:delete` permission |
 | `403` | `domain_name` is not owned by your organization |
 | `404` | Mailbox not found for that address |

@@ -13,7 +13,7 @@ A **mailbox** is the actual mail storage (inbox, folders and quota) behind an em
 | `POST` | [`/mailbox/create`](./create) | `mailbox:create` | Create a mailbox |
 | `PATCH` | [`/mailbox/update`](./update) | `mailbox:edit` | Update a mailbox's enabled state and policies |
 | `PUT` | [`/mailbox/update/quota`](./quota) | `mailbox:edit` | Change a mailbox's storage quota |
-| `DELETE` | [`/mailbox/delete/{domain_name}/{email_prefix}`](./delete) | *(none enforced)* | Delete a mailbox |
+| `DELETE` | [`/mailbox/delete/{domain_name}/{email_prefix}`](./delete) | `mailbox:delete` | Delete a mailbox |
 
 ## Which domains you can use
 
@@ -29,7 +29,3 @@ A **mailbox** is the actual mail storage (inbox, folders and quota) behind an em
 ## New mailboxes start disabled
 
 [Create Mailbox](./create) always sets `is_enabled` to `false` — there's no field to override this. The mail server provisions the mailbox asynchronously after the API call returns; enable it with [Update Mailbox](./update) once it's ready.
-
-## Delete has no dedicated permission yet
-
-Unlike every other mailbox endpoint, [Delete Mailbox](./delete) doesn't check a `mailbox:*` permission — a valid API key with access to the domain is enough. `mailbox:delete` exists as a grantable permission in the admin panel but isn't enforced by this endpoint today.
