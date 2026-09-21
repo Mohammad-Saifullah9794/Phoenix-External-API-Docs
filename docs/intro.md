@@ -10,7 +10,7 @@ title: Introduction
 The Phoenix Admin API lets your own software do what an administrator does in the **Phoenix Admin Panel** — list your domains, create and manage identities, reset passwords, organize people into departments, and manage mailboxes — using an API key instead of a login.
 
 :::warning Under active development
-New endpoints are still being added. Existing request and response shapes may still change before a stable release. Changes are tracked in the [API source repository](https://github.com/Yukthi-Systems/Phoenix-External-API/commits).
+New endpoints are being added. Existing request and response shapes may still change before a stable release. Changes are tracked in the [API source repository](https://github.com/Yukthi-Systems/Phoenix-External-API/commits).
 :::
 
 ## Base URL

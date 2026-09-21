@@ -21,7 +21,7 @@ Permissions follow one shape per resource — `view`, `create`, `edit`, `delete`
 ² Also covers [Reset Password](./api/identities/reset-password).<br/>
 ³ Not enforced yet — [Delete Mailbox](./api/mailbox/delete) currently only requires a valid key with access to the domain, not this permission.
 
-The [API Health](./api/health) and [Self](./api/self) endpoints need a valid key (Self) or nothing at all (Health), but no specific permission.
+The [API Health](./api/health) and [Self](./api/self) endpoints need a valid key (Self) or nothing at all (Health), but no specific permission. [Delete Mailbox](./api/mailbox/delete) also needs no specific permission today — see the note below.
 
 ## What happens without the permission
 

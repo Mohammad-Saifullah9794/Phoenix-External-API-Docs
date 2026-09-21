@@ -5,7 +5,7 @@ sidebar_label: Overview
 
 # Identities
 
-An **identity** is a user account on one of your domains — an email address such as `jane.doe@example.com` with a password, profile details and 2FA settings. A mailbox (storage for mail) is attached to an identity separately.
+An **identity** is a user account on one of your domains — an email address such as `jane.doe@example.com` with a password, profile details and 2FA settings. A [mailbox](../mailbox) (storage for mail) is attached to an identity separately.
 
 | Method | Endpoint | Permission | Description |
 |--------|----------|------------|-------------|
