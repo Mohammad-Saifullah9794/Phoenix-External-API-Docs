@@ -78,7 +78,7 @@ print(response.json())
 | Field | Type | Description |
 |-------|------|-------------|
 | `api_key` | `string` (UUID) | The API key that made the request, echoed back |
-| `organization_id` | `string` (UUID) | The organization this key belongs to. It's the same value as `organization_id` from [Get Organization](../organization). |
+| `organization_id` | `string` (UUID) | The organization this key belongs to. It's the same value as `organization_id` from [Get Organization](../organization/get). |
 | `permissions` | `string[]` | Every permission granted to this key, in `resource:action` form. See [Permissions](../../permissions) for what each one unlocks. The list is in the order it was saved, not sorted. |
 
 </TabItem>

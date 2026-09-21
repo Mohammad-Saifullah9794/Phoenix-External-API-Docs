@@ -4,7 +4,7 @@ title: Delete Identity
 
 # Delete Identity
 
-Permanently deletes an identity. Your organization's `utilized_email_identities` ([Get Organization](../organization)) goes down by 1.
+Permanently deletes an identity. Your organization's `utilized_email_identities` ([Get Organization](../organization/get)) goes down by 1.
 
 An identity that still has a **[mailbox](../mailbox), chat account or file-storage account** cannot be deleted — remove those first (see [Delete Mailbox](../mailbox/delete)), otherwise you get `409 Conflict`.
 

@@ -30,7 +30,7 @@ Requires the `mailbox:create` permission. See [Permissions](../../permissions).
 | `forwarding_policy_id` | `string` (UUID) or `null` | No | Forwarding policy to apply |
 | `distribution_policy_id` | `string` (UUID) or `null` | No | Distribution-list policy to apply |
 | `general_policy_id` | `string` (UUID) or `null` | No | General policy to apply |
-| `quota_allocated` | `number` | Yes | Storage quota to allocate, **in GB**. Must be at least `0.1`. Deducted from your organization's available quota — see [Get Organization](../organization). |
+| `quota_allocated` | `number` | Yes | Storage quota to allocate, **in GB**. Must be at least `0.1`. Deducted from your organization's available quota — see [Get Organization](../organization/get). |
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
@@ -108,7 +108,7 @@ The number of mailboxes created (always `1` on success). Fetch the new mailbox w
 1
 ```
 
-Your organization's `quota_utilized` ([Get Organization](../organization)) goes up by `quota_allocated`.
+Your organization's `quota_utilized` ([Get Organization](../organization/get)) goes up by `quota_allocated`.
 
 </TabItem>
 <TabItem value="400" label="400 Bad Request">

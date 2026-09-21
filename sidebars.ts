@@ -3,6 +3,7 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   apiSidebar: [
     'intro',
+    'api-keys',
     'authentication',
     'permissions',
     'errors',
@@ -19,7 +20,17 @@ const sidebars: SidebarsConfig = {
         'api/self/refresh',
       ],
     },
-    'api/organization/index',
+    {
+      type: 'category',
+      label: 'Organization',
+      link: {
+        type: 'doc',
+        id: 'api/organization/index',
+      },
+      items: [
+        'api/organization/get',
+      ],
+    },
     {
       type: 'category',
       label: 'Domains',

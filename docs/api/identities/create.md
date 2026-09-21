@@ -136,7 +136,7 @@ The number of identities created (always `1` on success). Fetch the new identity
 1
 ```
 
-Your organization's `utilized_email_identities` ([Get Organization](../organization)) goes up by 1.
+Your organization's `utilized_email_identities` ([Get Organization](../organization/get)) goes up by 1.
 
 </TabItem>
 <TabItem value="400" label="400 Bad Request">

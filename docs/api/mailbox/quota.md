@@ -98,7 +98,7 @@ The number of rows updated (always `1` on success).
 1
 ```
 
-Increasing the quota raises your organization's `quota_utilized` ([Get Organization](../organization)) by the difference; lowering it (down to no less than current usage) lowers `quota_utilized` by the difference.
+Increasing the quota raises your organization's `quota_utilized` ([Get Organization](../organization/get)) by the difference; lowering it (down to no less than current usage) lowers `quota_utilized` by the difference.
 
 </TabItem>
 <TabItem value="400" label="400 Bad Request">

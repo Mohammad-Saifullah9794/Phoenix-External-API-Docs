@@ -24,7 +24,7 @@ A **mailbox** is the actual mail storage (inbox, folders and quota) behind an em
 
 ## Storage quota uses two different units
 
-[Get Mailbox](./get) returns `quota_allocated` **in GB** but `quota_utilized_bytes` **in bytes**. To compare the two, divide `quota_utilized_bytes` by `1024^3`. This mirrors [Get Organization](../organization), whose own `quota_allocated` / `quota_utilized` are both in GB.
+[Get Mailbox](./get) returns `quota_allocated` **in GB** but `quota_utilized_bytes` **in bytes**. To compare the two, divide `quota_utilized_bytes` by `1024^3`. This mirrors [Get Organization](../organization/get), whose own `quota_allocated` / `quota_utilized` are both in GB.
 
 ## New mailboxes start disabled
 
