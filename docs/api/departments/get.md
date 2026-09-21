@@ -72,7 +72,23 @@ print(response.json())
 {
   "department_id": "7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e",
   "department_name": "Engineering",
-  "details": {},
+  "details": {
+    "address": "admin",
+    "description": "admin department",
+    "notes": "",
+    "authorized_persons": [
+      {
+        "name": "tst",
+        "email": "sse@sds",
+        "phone": "+91123113213"
+      },
+      {
+        "name": "",
+        "email": "",
+        "phone": ""
+      }
+    ]
+  },
   "created_at": "2025-06-01T10:00:00Z",
   "updated_at": "2025-06-01T10:00:00Z"
 }
@@ -84,9 +100,26 @@ print(response.json())
 |-------|------|-------------|
 | `department_id` | `string` (UUID) | The department's ID |
 | `department_name` | `string` | Department name |
-| `details` | `object` | Custom JSON you stored with the department (e.g. `{"cost_center": "CC-104"}`); `{}` if unused |
+| `details` | `object` | Additional details stored with the department — see [Details object](#details-object) below |
 | `created_at` | `string` (ISO 8601) | When the department was created |
 | `updated_at` | `string` (ISO 8601) | When the department was last updated |
+
+#### Details object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `address` | `string` | Department's address |
+| `description` | `string` | Free-text description of the department |
+| `notes` | `string` | Additional notes about the department |
+| `authorized_persons` | `array` of objects | People authorized to act for this department — see [Authorized person object](#authorized-person-object) below |
+
+#### Authorized person object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | `string` | Person's name |
+| `email` | `string` | Person's email address |
+| `phone` | `string` | Person's phone number |
 
 </TabItem>
 <TabItem value="401" label="401 Unauthorized">

@@ -1,5 +1,6 @@
 ---
 title: Get Organization
+sidebar_label: Organization
 ---
 
 # Get Organization

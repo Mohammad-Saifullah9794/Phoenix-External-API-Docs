@@ -77,7 +77,12 @@ print(response.json())
     {
       "department_id": "7f9c2a10-4e3b-4c8a-9d2e-6b1f0a3c5d7e",
       "department_name": "Engineering",
-      "details": {},
+      "details": {
+        "address": "admin",
+        "description": "admin department",
+        "notes": "",
+        "authorized_persons": []
+      },
       "created_at": "2025-06-01T10:00:00Z",
       "updated_at": "2025-06-01T10:00:00Z"
     }

@@ -11,7 +11,7 @@ const config: Config = {
     v4: true,
   },
 
-  url: "https://docs.yukthi.net",
+  url: "https://v3-api.docs.yukthi.net",
   baseUrl: "/",
 
   organizationName: "Yukthi-Systems",
@@ -46,6 +46,13 @@ const config: Config = {
             "https://github.com/Yukthi-Systems/Phoenix-External-API-Docs/tree/main/",
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
+          lastVersion: "current",
+          versions: {
+            current: {
+              label: "v1.0",
+              badge: true,
+            },
+          },
         },
         blog: false,
         theme: {
@@ -70,7 +77,7 @@ const config: Config = {
       },
       {
         property: "og:image",
-        content: "https://docs.yukthi.net/img/logo-new.png",
+        content: "https://v3-api.docs.yukthi.net/img/logo-new.png",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -81,7 +88,7 @@ const config: Config = {
       },
       {
         name: "twitter:image",
-        content: "https://docs.yukthi.net/img/logo-new.png",
+        content: "https://v3-api.docs.yukthi.net/img/logo-new.png",
       },
     ],
     colorMode: {
@@ -99,6 +106,10 @@ const config: Config = {
           sidebarId: "apiSidebar",
           position: "left",
           label: "Docs",
+        },
+        {
+          type: "docsVersionDropdown",
+          position: "right",
         },
       ],
     },

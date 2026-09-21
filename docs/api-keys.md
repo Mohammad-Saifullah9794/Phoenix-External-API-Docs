@@ -7,10 +7,6 @@ title: Create an API key
 
 API keys are created and managed by an administrator in the **Phoenix Admin Panel** under **Settings → API Keys**. Each key belongs to one organization and can only reach that organization's data.
 
-{/* TODO(screenshots): the images below are from an older build (they still list policy:* permissions
-    that the wizard no longer offers). Retake all four from the current admin panel, crop out the top
-    header bar (no personal email/avatar visible), keep the same file names, and delete this comment. */}
-
 ## 1. Open API Keys
 
 Sign in to the admin panel, open **Settings** in the left menu and choose **API Keys**. The page lists existing keys. Click **Create**.
@@ -19,7 +15,7 @@ Sign in to the admin panel, open **Settings** in the left menu and choose **API 
 
 ## 2. Basic info
 
-- **Key Name** (required) — name the key after the service that will use it, for example `Billing Sync`. This is what appears in the list.
+- **Key Name** (required) — name the key after the service that will use it, for example `Production Service Key`. This is what appears in the list.
 - **Description** — what the key is for and who owns the integration.
 - **Metadata / Additional Details** — optional key/value tags (environment, ticket number, owning team). They are for your reference only and do not change what the key can do.
 
@@ -27,17 +23,7 @@ Sign in to the admin panel, open **Settings** in the left menu and choose **API 
 
 ## 3. Permissions
 
-Tick only what the integration needs. Each ticked box becomes one permission string on the key, in `resource:action` form — for example ticking **View** on **Departments** grants `department:view`.
-
-| Admin panel section | Module | Actions offered | Used by the API today |
-|---------------------|--------|-----------------|-----------------------|
-| Administration | Organization | View | [Get Organization](./api/organization) |
-| Administration | Identity Management | View, Create, Edit, Delete | [Identities](./api/identities) |
-| Mail Flow | Domains | View, Create, Edit, Delete | View and Edit only — see [Domains](./api/domains) |
-| Mail Flow | MailBox | View, Create, Edit, Delete | Not yet documented — coming soon |
-| Mail Management | Departments | View, Create, Edit, Delete | [Departments](./api/departments) |
-
-The full mapping of permission to endpoint is on the [Permissions](./permissions) page.
+Tick only what the integration needs. Each ticked box becomes one permission string on the key, in `resource:action` form — for example ticking **View** on **Departments** grants `department:view`. See the [Permissions](./permissions) page for exactly which permission each endpoint requires, and pick whichever ones your integration will actually call.
 
 ![Step 2 — Permissions](/img/admin-panel/api-key-create-2.png)
 
@@ -54,7 +40,7 @@ After you click **Create API Key**, a dialog shows the key one time. Copy it or 
 ## 5. Test the key
 
 ```bash
-curl 'https://v3-api.test.yukthi.net/self/who-am-i' \
+curl '<BASE_URL>/self/who-am-i' \
   --header 'x-api-key: <API_KEY>'
 ```
 

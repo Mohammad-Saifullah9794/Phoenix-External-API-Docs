@@ -31,7 +31,7 @@ This is a **full replace**, not a partial update: every field below is written o
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `details` | `object` | Yes | Custom JSON you want stored with the domain. Replaces the existing value. Send `{}` if unused. |
+| `details` | `object` | Yes | Details to store with the domain — see [Details object](#details-object) below. This replaces the existing value in full. |
 | `is_active` | `boolean` | Yes | `false` deactivates the domain (see warning below) |
 | `filter_policy_id` | `string` (UUID) or `null` | No | Filter policy to apply. **Leaving it out sets it to `null`.** |
 | `attachment_policy_id` | `string` (UUID) or `null` | No | Attachment policy to apply. **Leaving it out sets it to `null`.** |
@@ -39,6 +39,15 @@ This is a **full replace**, not a partial update: every field below is written o
 | `caution_id` | `string` (UUID) or `null` | No | Caution to apply. **Leaving it out sets it to `null`.** |
 
 Policy, disclaimer and caution IDs are created in the admin panel (**Policies** menu). The API has no endpoint to list them yet.
+
+#### Details object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `description` | `string` or `null` | Yes | Free-text note about the domain |
+| `address` | `string` or `null` | Yes | Postal address associated with the domain |
+
+`details` is a full replace like the rest of the body: send both fields on every call, with `null` for anything you don't want to set.
 
 :::warning Setting `is_active` to `false`
 A deactivated domain is no longer accepted by the identity endpoints — [List](../identities/list), [Create](../identities/create) and [Update](../identities/update) Identity return `403 Forbidden` for it until you set `is_active` back to `true`.
@@ -52,7 +61,10 @@ curl --location --request PATCH '<BASE_URL>/domain/update/example.com' \
 --header 'x-api-key: <API_KEY>' \
 --header 'Content-Type: application/json' \
 --data '{
-  "details": {},
+  "details": {
+    "description": null,
+    "address": null
+  },
   "is_active": true,
   "filter_policy_id": null,
   "attachment_policy_id": null,
@@ -72,7 +84,10 @@ const response = await fetch('<BASE_URL>/domain/update/example.com', {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    details: {},
+    details: {
+      description: null,
+      address: null,
+    },
     is_active: true,
     filter_policy_id: null,
     attachment_policy_id: null,
@@ -95,7 +110,10 @@ response = requests.patch(
     '<BASE_URL>/domain/update/example.com',
     headers={'x-api-key': '<API_KEY>'},
     json={
-        'details': {},
+        'details': {
+            'description': None,
+            'address': None,
+        },
         'is_active': True,
         'filter_policy_id': None,
         'attachment_policy_id': None,

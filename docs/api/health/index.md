@@ -7,7 +7,7 @@ Confirms that the API server, its PostgreSQL connection pool, and its Redis cach
 
 <ApiEndpoint method="GET" path="/health/api" auth={false} />
 
-> **Base URL**: `<BASE_URL>` in the samples below is the address of the API server — see [Base URL](../../intro#base-url) for the value for each environment. This is the only endpoint on this site that needs no API key, so you can try it directly in your browser using the test environment's base URL: `https://v3-api.test.yukthi.net/health/api`.
+> **Base URL**: `<BASE_URL>` in the samples below is the address of the API server — see [Base URL](../../intro#base-url) for the value for each environment. This is the only endpoint on this site that needs no API key, so you can try it directly in your browser by appending `/health/api` to your environment's base URL.
 
 ## Headers
 

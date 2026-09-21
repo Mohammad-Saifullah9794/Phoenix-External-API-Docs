@@ -74,6 +74,10 @@ Unauthorized: Invalid API Key
 
 You'll get this if the header is missing, isn't a valid UUID, or doesn't match an active key.
 
+## How key details are cached
+
+A valid key's organization and permissions are cached in Redis for up to **7 hours** after they're first resolved. If you edit, deactivate or delete a key — or change its permissions — in the admin panel, that change is not picked up until the cache expires, unless you call [`POST /self/refresh`](./api/self/refresh) with that key to bust the cache immediately.
+
 ## Checking what a key can do
 
 Call [`GET /self/who-am-i`](./api/self/who-am-i) with your key to see the organization it belongs to and the permissions it holds. If you've just changed a key's permissions and need that change reflected immediately, call [`POST /self/refresh`](./api/self/refresh) to bust the cache.

@@ -24,7 +24,24 @@ Requires the `department:create` permission. See [Permissions](../../permissions
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `department_name` | `string` | Yes | Department name. Up to 250 characters; must be unique within your organization. |
-| `details` | `object` | Yes | Custom JSON to store with the department, e.g. `{"cost_center": "CC-104"}`. Send `{}` if unused. |
+| `details` | `object` | Yes | Details to store with the department — see [Details object](#details-object) below. |
+
+#### Details object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `address` | `string` | Yes | Department's address. Send `""` if unused. |
+| `description` | `string` | Yes | Free-text description of the department. Send `""` if unused. |
+| `notes` | `string` | Yes | Additional notes about the department. Send `""` if unused. |
+| `authorized_persons` | `array` of objects | Yes | People authorized to act for this department — see [Authorized person object](#authorized-person-object) below. Send `[]` if unused. |
+
+#### Authorized person object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | `string` | Yes | Person's name |
+| `email` | `string` | Yes | Person's email address |
+| `phone` | `string` | Yes | Person's phone number |
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
@@ -35,7 +52,23 @@ curl --location '<BASE_URL>/department/create' \
 --header 'Content-Type: application/json' \
 --data '{
   "department_name": "Engineering",
-  "details": {}
+  "details": {
+    "address": "admin",
+    "description": "admin department",
+    "notes": "",
+    "authorized_persons": [
+      {
+        "name": "tst",
+        "email": "sse@sds",
+        "phone": "+91123113213"
+      },
+      {
+        "name": "",
+        "email": "",
+        "phone": ""
+      }
+    ]
+  }
 }'
 ```
 
@@ -51,7 +84,15 @@ const response = await fetch('<BASE_URL>/department/create', {
   },
   body: JSON.stringify({
     department_name: 'Engineering',
-    details: {},
+    details: {
+      address: 'admin',
+      description: 'admin department',
+      notes: '',
+      authorized_persons: [
+        { name: 'tst', email: 'sse@sds', phone: '+91123113213' },
+        { name: '', email: '', phone: '' },
+      ],
+    },
   }),
 });
 
@@ -68,7 +109,18 @@ import requests
 response = requests.post(
     '<BASE_URL>/department/create',
     headers={'x-api-key': '<API_KEY>'},
-    json={'department_name': 'Engineering', 'details': {}},
+    json={
+        'department_name': 'Engineering',
+        'details': {
+            'address': 'admin',
+            'description': 'admin department',
+            'notes': '',
+            'authorized_persons': [
+                {'name': 'tst', 'email': 'sse@sds', 'phone': '+91123113213'},
+                {'name': '', 'email': '', 'phone': ''},
+            ],
+        },
+    },
 )
 print(response.json())
 ```

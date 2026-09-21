@@ -39,9 +39,8 @@ export default function Home() {
             </h1>
 
             <p className={styles.subtitle}>
-              A Rust-powered REST API for email infrastructure, built with
-              API key authentication and a growing set of endpoints —
-              currently in early-stage development.
+              A Rust-powered REST API for managing and integrating platform services, 
+              built with API key authentication and a growing set of endpoints.
             </p>
 
             <div className={styles.buttons}>
@@ -86,12 +85,12 @@ export default function Home() {
             <div className={styles.stats}>
               <div className={styles.stat}>
                 <div className={`${styles.statDot} ${styles.green}`} />
-                <span>99.9% Uptime</span>
+                <span>Built with Rust</span>
               </div>
               <div className={styles.statDivider} />
               <div className={styles.stat}>
                 <div className={`${styles.statDot} ${styles.blue}`} />
-                <span>&lt;10ms Response</span>
+                <span>API Key Auth</span>
               </div>
               <div className={styles.statDivider} />
               <div className={styles.stat}>
@@ -108,17 +107,17 @@ export default function Home() {
               <FeatureCard
                 icon="⚡"
                 title="Developer Experience"
-                description="Intuitive API design with clear documentation, interactive examples, and comprehensive code samples in multiple languages."
+                description="Intuitive API design with clear documentation and code samples in cURL, Node.js, and Python."
               />
               <FeatureCard
                 icon="🔐"
-                title="Enterprise Security"
-                description="Built with Rust for memory safety. Robust authentication, encryption, and data protection mechanisms ensure your data stays secure."
+                title="Built with Rust"
+                description="Memory-safe by design, with API key authentication scoped to your organization's data."
               />
               <FeatureCard
                 icon="🚀"
-                title="High Performance"
-                description="Optimized endpoints with sub-10ms latency, intelligent caching, and 99.9% uptime SLA guarantee for mission-critical operations."
+                title="Actively Developed"
+                description="A growing set of endpoints with Redis-backed caching. Currently in early-stage development — request and response shapes may still change."
               />
             </div>
           </div>
@@ -169,6 +168,12 @@ export default function Home() {
                   name: "Departments",
                   desc: "Full CRUD for organizing identities",
                   path: "/docs/api/departments",
+                  category: "Core",
+                },
+                {
+                  name: "Mailboxes",
+                  desc: "Create, list, update, delete, and resize mailbox storage quotas",
+                  path: "/docs/api/mailbox",
                   category: "Core",
                 },
               ].map((endpoint, idx) => (

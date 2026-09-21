@@ -1,6 +1,5 @@
 ---
 title: Self
-sidebar_label: Overview
 ---
 
 # Self

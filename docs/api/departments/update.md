@@ -30,7 +30,24 @@ Requires the `department:edit` permission. See [Permissions](../../permissions).
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `department_name` | `string` | Yes | New name. Up to 250 characters; must be unique within your organization. |
-| `details` | `object` | Yes | Custom JSON to store with the department. Send `{}` if unused. |
+| `details` | `object` | Yes | Details to store with the department — see [Details object](#details-object) below. This replaces the existing value in full. |
+
+#### Details object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `address` | `string` | Yes | Department's address. Send `""` if unused. |
+| `description` | `string` | Yes | Free-text description of the department. Send `""` if unused. |
+| `notes` | `string` | Yes | Additional notes about the department. Send `""` if unused. |
+| `authorized_persons` | `array` of objects | Yes | People authorized to act for this department — see [Authorized person object](#authorized-person-object) below. Send `[]` if unused. |
+
+#### Authorized person object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | `string` | Yes | Person's name |
+| `email` | `string` | Yes | Person's email address |
+| `phone` | `string` | Yes | Person's phone number |
 
 <Tabs groupId="code-samples">
 <TabItem value="curl" label="cURL">
@@ -41,7 +58,18 @@ curl --location --request PATCH '<BASE_URL>/department/update/<DEPARTMENT_ID>' \
 --header 'Content-Type: application/json' \
 --data '{
   "department_name": "Platform Engineering",
-  "details": {}
+  "details": {
+    "address": "admin",
+    "description": "admin department",
+    "notes": "",
+    "authorized_persons": [
+      {
+        "name": "tst",
+        "email": "sse@sds",
+        "phone": "+91123113213"
+      }
+    ]
+  }
 }'
 ```
 
@@ -59,7 +87,14 @@ const response = await fetch(
     },
     body: JSON.stringify({
       department_name: 'Platform Engineering',
-      details: {},
+      details: {
+        address: 'admin',
+        description: 'admin department',
+        notes: '',
+        authorized_persons: [
+          { name: 'tst', email: 'sse@sds', phone: '+91123113213' },
+        ],
+      },
     }),
   },
 );
@@ -77,7 +112,17 @@ import requests
 response = requests.patch(
     '<BASE_URL>/department/update/<DEPARTMENT_ID>',
     headers={'x-api-key': '<API_KEY>'},
-    json={'department_name': 'Platform Engineering', 'details': {}},
+    json={
+        'department_name': 'Platform Engineering',
+        'details': {
+            'address': 'admin',
+            'description': 'admin department',
+            'notes': '',
+            'authorized_persons': [
+                {'name': 'tst', 'email': 'sse@sds', 'phone': '+91123113213'},
+            ],
+        },
+    },
 )
 print(response.json())
 ```

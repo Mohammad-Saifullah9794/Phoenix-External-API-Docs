@@ -73,7 +73,10 @@ print(response.json())
 {
   "domain_name": "example.com",
   "anti_phishing_secret_code": "a1b2c3d4",
-  "details": {},
+  "details": {
+    "description": null,
+    "address": null
+  },
   "is_active": true,
   "is_dns_txt_verified": true,
   "dns_txt_verification_key": "phoenix-verify-9f1c2b",
@@ -100,7 +103,7 @@ print(response.json())
 |-------|------|-------------|
 | `domain_name` | `string` | The domain name |
 | `anti_phishing_secret_code` | `string` | Anti-phishing secret code configured for this domain in the admin panel |
-| `details` | `object` | Custom JSON stored with the domain (set via the admin panel or [Update Domain](./update)); `{}` if unused |
+| `details` | `object` | Additional details stored with the domain — see [Details object](#details-object) below |
 | `is_active` | `boolean` | Whether the domain is active |
 | `is_dns_txt_verified` | `boolean` | Whether domain ownership has been verified via DNS TXT record |
 | `dns_txt_verification_key` | `string` | The TXT record value expected for verification |
@@ -118,6 +121,13 @@ print(response.json())
 | `disclaimer_id` | `string` (UUID) or `null` | Applied disclaimer, if any |
 | `caution_id` | `string` (UUID) or `null` | Applied caution, if any |
 | `created_at` | `string` (ISO 8601) | When the domain was created |
+
+#### Details object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `description` | `string` or `null` | Free-text note about the domain, set via the admin panel |
+| `address` | `string` or `null` | Postal address associated with the domain, set via the admin panel |
 
 </TabItem>
 <TabItem value="401" label="401 Unauthorized">
