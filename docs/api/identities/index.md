@@ -24,3 +24,5 @@ An **identity** is a user account on one of your domains — an email address su
 ## Identity count
 
 Your organization can hold a limited number of identities (`allocated_email_identities` in [Get Organization](../organization/get)). Creating an identity adds 1 to `utilized_email_identities`; deleting one subtracts 1. When the limit is reached, [Create Identity](./create) returns `403`.
+
+If allocated_email_identities is -1, it means the organization has unlimited identities and the allocation limit does not apply.

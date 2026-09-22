@@ -12,13 +12,13 @@ Permissions follow one shape per resource — `view`, `create`, `edit`, `delete`
 | Resource | View | Create | Edit | Delete |
 |----------|------|--------|------|--------|
 | [Organization](./api/organization) | `organization:view` | — | — | — |
-| [Domains](./api/domains) | `domain:view` | —¹ | `domain:edit` | —¹ |
-| [Identities](./api/identities) | `identity:view` | `identity:create` | `identity:edit`² | `identity:delete` |
+| [Domains](./api/domains) | `domain:view` | — | `domain:edit` | — |
+| [Identities](./api/identities) | `identity:view` | `identity:create` | `identity:edit` | `identity:delete` |
 | [Departments](./api/departments) | `department:view` | `department:create` | `department:edit` | `department:delete` |
 | [Mailboxes](./api/mailbox) | `mailbox:view` | `mailbox:create` | `mailbox:edit` | `mailbox:delete` |
 
 
-It Also covers [Reset Password](./api/identities/reset-password).
+`identity:edit` also covers [Reset Password](./api/identities/reset-password).
 
 The [API Health](./api/health) and [Self](./api/self) endpoints need a valid key (Self) or nothing at all (Health), but no specific permission.
 
