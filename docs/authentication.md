@@ -9,7 +9,7 @@ Every endpoint except [API Health](./api/health) needs an API key. There is no l
 
 ## Get a key
 
-API keys are created by an administrator in the Phoenix Admin Panel under **Settings → API Keys**. See [Create an API key](./api-keys) for a step-by-step guide. The key is a UUID such as `3f2b8c1e-7a4d-4e9b-8c2f-1d5e6a7b8c9d`.
+API keys are created by an administrator in the Phoenix Admin Panel under **Settings → API Keys**. See [Create an API key](./api-keys) for a step-by-step guide. The key is a UUID such as `00000000-0000-0000-0000-000000000000`.
 
 ## Send the key in the `x-api-key` header
 
